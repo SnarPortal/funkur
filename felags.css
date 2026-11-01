@@ -1,0 +1,27 @@
+/* Funkugalleríið – Snar. Felags stílur til index.html og ritil.html */
+:root{--p:#f6f3ea;--p2:#ece7d8;--ink:#1b2430;--ink2:#2c3a4b;--mut:#5b6775;--w:#fff;--line:#d9d2bf;--red:#ef2418;--red2:#b8150c;--yel:#ffc93c;--yel2:#ffe7a3;--navy:#14213d;--c1:#2457d6;--c2:#1f9d6a;--c3:#f07b1a;--c7:#7c4dff}
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{background:var(--p);color:var(--ink);font:17px/1.6 Nunito,"Segoe UI",Arial,sans-serif;min-height:100vh}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:800;line-height:1.1;margin:0}
+a{color:inherit}
+button,input,select,textarea{font:inherit;color:inherit}
+:is(a,button,input,select,textarea):focus-visible{outline:4px solid var(--yel);outline-offset:3px;border-radius:6px}
+[hidden]{display:none!important}
+.wrap{width:min(1240px,100%);margin-inline:auto;padding-left:clamp(16px,4vw,44px);padding-right:clamp(16px,4vw,44px)}
+.top{position:sticky;top:0;z-index:20;background:var(--navy);color:#fff;border-bottom:2px solid var(--ink)}
+.top .wrap{display:flex;align-items:center;flex-wrap:wrap;gap:8px 14px;padding-top:10px;padding-bottom:10px}
+.top a{display:inline-flex;align-items:center;gap:6px;min-height:38px;padding:5px 14px;border-radius:999px;border:2px solid rgba(255,255,255,.45);color:#fff;text-decoration:none;font:800 14px/1.2 Nunito,sans-serif}
+.top a:hover{background:rgba(255,255,255,.14)}
+.top .brand{margin-right:auto;font:800 18px/1.1 Fraunces,serif;border:0;padding-left:0}
+.top .brand b{color:var(--red);background:#fff;border-radius:8px;padding:2px 7px;margin-right:6px;font-family:Nunito,sans-serif}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:42px;padding:8px 16px;border-radius:999px;border:2px solid var(--ink);background:var(--w);color:var(--ink);font:800 14.5px/1.2 Nunito,sans-serif;box-shadow:0 3px 0 var(--ink);cursor:pointer;text-decoration:none;transition:transform .12s,box-shadow .12s}
+.btn:hover{transform:translateY(2px);box-shadow:0 1px 0 var(--ink)}
+.btn--red{background:var(--red);color:#fff;border-color:var(--red2);box-shadow:0 3px 0 var(--red2)}
+.btn--blue{background:var(--c1);color:#fff}
+.btn--sm{min-height:34px;padding:5px 12px;font-size:13.5px}
+.btn svg{width:16px;height:16px}
+.kicker{display:inline-flex;align-items:center;gap:10px;font:800 13px/1.4 Nunito,sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+.kicker::before{content:"";width:26px;height:3px;background:var(--yel);border-radius:3px}
+code{font:600 .92em ui-monospace,Consolas,monospace;background:var(--p2);padding:1px 6px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}

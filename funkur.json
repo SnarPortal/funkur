@@ -1,0 +1,35 @@
+[
+  {
+    "fila": "funkur/funka-teljari-domi.html",
+    "heiti": "Lundateljarin",
+    "slag": "teljari",
+    "gjord_av": "Snar",
+    "flokkur": "dømi",
+    "skuli": "",
+    "dato": "2026-11-01",
+    "lysing": "Ein teljari, sum telur upp og niður – men ongantíð niður um 0.",
+    "vis": true
+  },
+  {
+    "fila": "funkur/funka-spurningur-domi.html",
+    "heiti": "Spurningar um bókina",
+    "slag": "spurningur",
+    "gjord_av": "Snar",
+    "flokkur": "dømi",
+    "skuli": "",
+    "dato": "2026-11-01",
+    "lysing": "Ein knøttur vel ein spurning um bókina – og sami spurningur kemur ikki tvær ferðir á rað.",
+    "vis": true
+  },
+  {
+    "fila": "funkur/funka-kviss-domi.html",
+    "heiti": "Kviss um Føroyar",
+    "slag": "kviss",
+    "gjord_av": "Snar",
+    "flokkur": "dømi",
+    "skuli": "",
+    "dato": "2026-11-01",
+    "lysing": "Satt ella ósatt? Fýra spurningar um Føroyar, og kvissið telur stig.",
+    "vis": true
+  }
+]

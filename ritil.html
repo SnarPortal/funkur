@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fo">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ritil · Funkugalleríið · Snar</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="felags.css">
+<style>
+html,body{height:100%}
+body{display:flex;flex-direction:column}
+.bar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:10px clamp(12px,2vw,20px);background:var(--yel2);border-bottom:2px solid var(--ink)}
+.bar h1{font-size:18px;margin-right:auto}
+.bar h1 small{display:block;font:700 13px/1.3 Nunito,sans-serif;color:var(--mut)}
+.bar label{display:inline-flex;align-items:center;gap:6px;font:800 13.5px/1.2 Nunito,sans-serif}
+.work{flex:1;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);min-height:0}
+.work.is-stack{grid-template-columns:1fr;grid-template-rows:1fr 1fr}
+.pane{display:flex;flex-direction:column;min-width:0;min-height:0}
+.pane+.pane{border-left:2px solid var(--ink)}
+.work.is-stack .pane+.pane{border-left:0;border-top:2px solid var(--ink)}
+.pt{padding:6px 12px;border-bottom:2px solid var(--ink);background:var(--w);font:800 12px/1.2 Nunito,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--mut);display:flex;justify-content:space-between}
+.pt span{text-transform:none;letter-spacing:0;color:var(--c2)}
+textarea{flex:1;width:100%;min-height:0;margin:0;padding:14px;border:0;resize:none;background:#0f172a;color:#f8fafc;font:15px/1.55 ui-monospace,Consolas,"Cascadia Mono",Menlo,monospace;tab-size:2;white-space:pre;outline:none}
+iframe{flex:1;width:100%;border:0;background:#fff}
+.msg{display:none;padding:8px 14px;background:#fde8e6;color:#8a1f2b;border-top:2px solid var(--ink);font:700 14px/1.4 ui-monospace,Consolas,monospace}
+.msg.on{display:block}
+.ask{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;padding:10px 14px;background:var(--yel2);border-bottom:2px solid var(--ink);font-weight:700}
+@media (max-width:820px){.work{grid-template-columns:1fr;grid-template-rows:minmax(260px,1fr) minmax(300px,1fr)}.pane+.pane{border-left:0;border-top:2px solid var(--ink)}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap" style="max-width:none">
+ <a class="brand" href="./"><b>Snar</b>Funkugalleríið</a>
+ <a href="./">← Aftur til galleríið</a>
+</div></header>
+<div class="bar">
+ <h1 data-title>Ritilin<small data-sub>Skriva kotu vinstrumegin – úrslitið kemur høgrumegin.</small></h1>
+ <label><input type="checkbox" data-auto checked> Koyr sjálvvirkandi</label>
+ <button class="btn btn--sm btn--red" type="button" data-run>▶ Koyr</button>
+ <button class="btn btn--sm" type="button" data-dl>Tak niður fílu</button>
+ <button class="btn btn--sm" type="button" data-lay title="Lið um lið / undir hvørjum øðrum">⇅</button>
+ <button class="btn btn--sm" type="button" data-reset>Byrja umaftur</button>
+</div>
+<div class="ask" data-ask hidden></div>
+<main class="work" data-work>
+ <div class="pane"><div class="pt">Kota <span data-saved></span></div><textarea spellcheck="false" aria-label="Kota" data-ta></textarea></div>
+ <div class="pane"><div class="pt">Úrslit</div><iframe title="Úrslit" sandbox="allow-scripts allow-modals allow-forms" data-frame></iframe><div class="msg" data-msg role="status"></div></div>
+</main>
+<script>
+(function(){
+ 'use strict';
+ var ta=document.querySelector('[data-ta]'),fr=document.querySelector('[data-frame]'),msg=document.querySelector('[data-msg]'),auto=document.querySelector('[data-auto]'),saved=document.querySelector('[data-saved]'),ask=document.querySelector('[data-ask]');
+ var TOM='<!DOCTYPE html>\n<html lang="fo">\n<head>\n  <meta charset="utf-8">\n  <title>Mín funka</title>\n  <style>\n    body { font-family: Arial, sans-serif; padding: 20px; }\n  </style>\n</head>\n<body>\n  <h1>Mín funka</h1>\n  <button onclick="trýst()">Trýst her</button>\n  <p id="svar"></p>\n\n  <script>\n    function trýst() {\n      document.getElementById("svar").textContent = "Hey!";\n    }\n  <\/script>\n</body>\n</html>';
+ var params=new URLSearchParams(location.search),fila=params.get('f'),start=TOM,KEY='snar-funkugalleri-ritil:'+(fila||'tomt');
+ if(fila&&!/^funkur\/[\w.\-]+\.html$/.test(fila))fila=null;
+ var ERR='<script>window.addEventListener("error",function(e){try{parent.postMessage({kvg:"err",m:String(e.message||e),l:e.lineno||0},"*")}catch(x){}});<\/script>';
+ function run(){msg.className='msg';msg.textContent='';var c=ta.value;c=/<head[^>]*>/i.test(c)?c.replace(/<head[^>]*>/i,function(m){return m+ERR;}):ERR+c;fr.srcdoc=c;}
+ window.addEventListener('message',function(e){if(e.data&&e.data.kvg==='err'){msg.className='msg on';msg.textContent='Villa'+(e.data.l?' í linju '+e.data.l:'')+': '+e.data.m;}});
+ var t;ta.addEventListener('input',function(){try{localStorage.setItem(KEY,ta.value);}catch(e){}saved.textContent='goymt';clearTimeout(t);t=setTimeout(function(){saved.textContent='';if(auto.checked)run();},600);});
+ ta.addEventListener('keydown',function(e){if((e.ctrlKey||e.metaKey)&&e.key==='Enter'){e.preventDefault();run();}if(e.key==='Tab'&&!e.shiftKey){e.preventDefault();var s=ta.selectionStart;ta.value=ta.value.slice(0,s)+'  '+ta.value.slice(ta.selectionEnd);ta.selectionStart=ta.selectionEnd=s+2;}});
+ document.querySelector('[data-run]').addEventListener('click',run);
+ document.querySelector('[data-lay]').addEventListener('click',function(){document.querySelector('[data-work]').classList.toggle('is-stack');});
+ function askBox(text,yes,cb){ask.hidden=false;ask.innerHTML='<span><b>Snar sigur:</b> '+text+'</span><button class="btn btn--sm btn--red" type="button" data-ja>'+yes+'</button><button class="btn btn--sm" type="button" data-nei>Nei</button>';ask.querySelector('[data-ja]').onclick=function(){ask.hidden=true;cb();};ask.querySelector('[data-nei]').onclick=function(){ask.hidden=true;};}
+ document.querySelector('[data-reset]').addEventListener('click',function(){askBox('Vilt tú fáa upprunaligu kotuna aftur? Tað, tú hevur broytt, fer burtur.','Ja, byrja umaftur',function(){ta.value=start;try{localStorage.removeItem(KEY);}catch(e){}run();});});
+ document.querySelector('[data-dl]').addEventListener('click',function(){var b=new Blob([ta.value],{type:'text/html;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=(fila?fila.split('/').pop().replace(/\.html$/,'')+'-broytt':'min-funka')+'.html';document.body.appendChild(a);a.click();setTimeout(function(){a.remove();URL.revokeObjectURL(a.href);},0);});
+ function load(code){start=code;var mine=null;try{mine=localStorage.getItem(KEY);}catch(e){}ta.value=mine||code;run();}
+ if(fila){
+  fetch(fila,{cache:'no-store'}).then(function(r){if(!r.ok)throw 0;return r.text();}).then(function(code){
+   var m=code.match(/<!--\s*Funka:\s*(.*?)\s*·\s*Gjørd av:\s*(.*?)\s*·/);if(m){document.querySelector('[data-title]').firstChild.textContent='Broyt: '+m[1]+' ';document.querySelector('[data-sub]').textContent='Upprunaliga gjørd av '+m[2]+'. Tað, tú broytir, verður bert goymt í tínum kaga.';}
+   load(code);}).catch(function(){load(TOM);});
+ }else load(TOM);
+})();
+</script>
+</body>
+</html>
