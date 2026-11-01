@@ -1,0 +1,21 @@
+<!-- Funka: Spurningar um bókina · Gjørd av: Snar, dømi · Kota og vitlíki, Snar -->
+<!DOCTYPE html>
+<html lang="fo">
+<head><meta charset="utf-8"><title>Spurningar um bøkur</title></head>
+<body>
+<h1>Spurningar um bókina</h1>
+<p id="spurningur">Trýst á knøttin!</p>
+<button onclick="nyggjur()">Nýggjur spurningur</button>
+<script>
+var spurningar = ["Hvør er høvuðspersónurin?", "Hvar gongur søgan fyri seg?", "Hvat dámdi tær best?", "Hvat var spennandi?", "Hvussu endaði søgan?", "Vildi tú lisið hana aftur?"];
+var seinast = -1;
+function nyggjur() {
+  // Frá SkoleGPT: sami spurningur kemur ikki tvær ferðir á rað
+  var tal = Math.floor(Math.random() * spurningar.length);
+  while (tal === seinast) { tal = Math.floor(Math.random() * spurningar.length); }
+  seinast = tal;
+  document.getElementById("spurningur").textContent = spurningar[tal];
+}
+</script>
+</body>
+</html>

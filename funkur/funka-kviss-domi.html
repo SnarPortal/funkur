@@ -1,0 +1,33 @@
+<!-- Funka: Kviss um Føroyar · Gjørd av: Snar, dømi · Kota og vitlíki, Snar -->
+<!DOCTYPE html>
+<html lang="fo">
+<head><meta charset="utf-8"><title>Kviss</title></head>
+<body>
+<h1>Kviss um Føroyar</h1>
+<p id="spurningur"></p>
+<button onclick="svara(true)">Satt</button>
+<button onclick="svara(false)">Ósatt</button>
+<p id="svar"></p>
+<p id="stig">0 stig</p>
+<script>
+// Spurningarnir skrivaði eg sjálvur
+var kviss = [
+  { spurningur: "Føroyar eru 18 oyggjar.", rætt: true },
+  { spurningur: "Tórshavn liggur á Suðuroy.", rætt: false },
+  { spurningur: "Slættaratindur er hægsta fjallið.", rætt: true },
+  { spurningur: "Lundin er ein fiskur.", rætt: false }
+];
+var nr = 0, stig = 0;
+function vis() { document.getElementById("spurningur").textContent = kviss[nr].spurningur; }
+function svara(val) {
+  // Frá SkoleGPT – roynt av mær
+  if (val === kviss[nr].rætt) { stig = stig + 1; document.getElementById("svar").textContent = "Rætt!"; }
+  else { document.getElementById("svar").textContent = "Skeivt."; }
+  document.getElementById("stig").textContent = stig + " stig";
+  nr = nr + 1;
+  if (nr < kviss.length) { vis(); } else { document.getElementById("spurningur").textContent = "Liðugt!"; }
+}
+vis();
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!-- Funka: Lundateljarin · Gjørd av: Snar, dømi · Kota og vitlíki, Snar -->
+<!DOCTYPE html>
+<html lang="fo">
+<head><meta charset="utf-8"><title>Mín teljari</title>
+<style>
+body { font-family: Arial, sans-serif; text-align: center; }
+#tal { font-size: 90px; color: darkred; }
+</style></head>
+<body>
+<h1>Lundateljarin</h1>
+<p id="tal">0</p>
+<button onclick="upp()">+1</button>
+<button onclick="nidur()">−1</button>
+<button onclick="nulla()">Byrja umaftur</button>
+<script>
+// Hetta skrivaði eg sjálv
+var tal = 0;
+function vis() { document.getElementById("tal").textContent = tal; }
+function upp() { tal = tal + 1; vis(); }
+function nidur() {
+  tal = tal - 1;
+  // Frá SkoleGPT – roynt av mær
+  if (tal < 0) { tal = 0; }
+  vis();
+}
+function nulla() { tal = 0; vis(); }
+</script>
+</body>
+</html>
