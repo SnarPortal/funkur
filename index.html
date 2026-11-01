@@ -34,12 +34,13 @@
 .info h3{font-size:19px;margin-bottom:6px}
 /* modal */
 .modal{position:fixed;inset:0;z-index:50;display:flex;align-items:center;justify-content:center;padding:clamp(8px,3vw,30px);background:rgba(20,33,61,.72)}
-.modal__box{display:flex;flex-direction:column;width:min(1100px,100%);height:min(820px,100%);background:var(--w);border:2px solid var(--ink);border-radius:18px;overflow:hidden;box-shadow:8px 8px 0 var(--ink)}
-.modal__bar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:10px 12px;border-bottom:2px solid var(--ink);background:var(--yel2)}
+.modal__box{display:flex;flex-direction:column;width:min(1100px,100%);height:min(820px,100%);background:var(--w);border:2px solid var(--ink);border-radius:18px;box-shadow:8px 8px 0 var(--ink)}
+/* ikki overflow:hidden her – tá teknar kagin ikki altíð funkuna í rammuni */
+.modal__bar{display:flex;align-items:center;flex-wrap:wrap;gap:8px;padding:10px 12px;border-bottom:2px solid var(--ink);background:var(--yel2);border-radius:16px 16px 0 0}
 .modal__bar b{margin-right:auto;font:800 17px/1.2 Fraunces,serif}
 .modal__bar small{display:block;font:700 13px/1.2 Nunito,sans-serif;color:var(--mut)}
-.modal iframe{flex:1;width:100%;border:0;background:#fff}
-.modal pre{flex:1;margin:0;overflow:auto;padding:14px 16px;background:#0f172a;color:#e2e8f0;font:14px/1.55 ui-monospace,Consolas,monospace;white-space:pre;tab-size:2}
+.modal iframe{flex:1;width:100%;border:0;background:#fff;border-radius:0 0 16px 16px;will-change:transform}
+.modal pre{flex:1;margin:0;overflow:auto;border-radius:0 0 16px 16px;padding:14px 16px;background:#0f172a;color:#e2e8f0;font:14px/1.55 ui-monospace,Consolas,monospace;white-space:pre;tab-size:2}
 footer{border-top:2px solid var(--line);padding:20px 0 30px;color:var(--mut);font-size:14px}
 @media (max-width:820px){.info{grid-template-columns:1fr}}
 </style>
@@ -110,11 +111,18 @@ footer{border-top:2px solid var(--line);padding:20px 0 30px;color:var(--mut);fon
  document.querySelector('[data-leita]').addEventListener('input',function(e){q=e.target.value.trim().toLowerCase();render();});
  // modal
  var modal=document.querySelector('[data-modal]'),frame=modal.querySelector('[data-m-frame]'),pre=modal.querySelector('[data-m-pre]'),codeBtn=modal.querySelector('[data-m-code]'),last=null;
- function open(n,showCode){var f=list[n];last=document.activeElement;modal.hidden=false;modal.querySelector('[data-m-title]').innerHTML=esc(f.heiti)+'<small>Gjørd av '+esc(by(f))+'</small>';modal.querySelector('[data-m-edit]').href='ritil.html?f='+encodeURIComponent(f.fila);frame.srcdoc='';pre.textContent='Heinti kotuna …';
-  code(f.fila).then(function(t){pre.textContent=t;frame.srcdoc=t;}).catch(function(){pre.textContent='Kundi ikki heinta kotuna.';});
-  setMode(!!showCode);modal.querySelector('[data-m-close]').focus();document.body.style.overflow='hidden';}
- function setMode(c){pre.hidden=!c;frame.hidden=c;codeBtn.textContent=c?'Royn funkuna':'Sí kotuna';}
- function close(){modal.hidden=true;frame.srcdoc='';document.body.style.overflow='';if(last)last.focus();}
+ /* Ein nýggjur rammi hvørja ferð: ein rammi, sum hevur verið fjaldur og verður brúktur aftur, verður ikki altíð teknaður av kaganum */
+ var curCode='';
+ function newFrame(){var nf=document.createElement('iframe');nf.setAttribute('data-m-frame','');nf.title='Funkan';nf.setAttribute('sandbox','allow-scripts allow-modals allow-forms');frame.parentNode.replaceChild(nf,frame);frame=nf;return nf;}
+ function show(){if(pre.hidden&&curCode){var nf=newFrame();
+  /* bíða, til glugginn er teknaður, og so «nudda» rammuna, tá ið funkan er innlisin, so kagin teknar hana */
+  nf.addEventListener('load',function(){nf.style.minHeight='99%';requestAnimationFrame(function(){nf.style.minHeight='';});});
+  setTimeout(function(){nf.srcdoc=curCode;},60);}}
+ function open(n,showCode){var f=list[n];last=document.activeElement;modal.hidden=false;modal.querySelector('[data-m-title]').innerHTML=esc(f.heiti)+'<small>Gjørd av '+esc(by(f))+'</small>';modal.querySelector('[data-m-edit]').href='ritil.html?f='+encodeURIComponent(f.fila);curCode='';newFrame();pre.textContent='Heinti kotuna …';
+  setMode(!!showCode);modal.querySelector('[data-m-close]').focus();document.body.style.overflow='hidden';
+  code(f.fila).then(function(t){pre.textContent=t;curCode=t;show();}).catch(function(){pre.textContent='Kundi ikki heinta kotuna.';});}
+ function setMode(c){pre.hidden=!c;frame.hidden=c;codeBtn.textContent=c?'Royn funkuna':'Sí kotuna';if(!c)show();}
+ function close(){modal.hidden=true;curCode='';newFrame();document.body.style.overflow='';if(last)last.focus();}
  grid.addEventListener('click',function(e){var o=e.target.closest('[data-open]'),c=e.target.closest('[data-code]');if(o)open(+o.getAttribute('data-open'),false);if(c)open(+c.getAttribute('data-code'),true);});
  codeBtn.addEventListener('click',function(){setMode(!pre.hidden?false:true);});
  modal.querySelector('[data-m-close]').addEventListener('click',close);
