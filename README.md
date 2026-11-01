@@ -1,4 +1,4 @@
-# Funkugalleríið · Snar
+# Funkuframsýningin · Snar
 
 Funkur, sum næmingar hava gjørt í Funkusmiðjuni í *Kota og vitlíki* á Snar.
 Síðan: https://snarportal.github.io/funkur/
@@ -16,7 +16,7 @@ Bert Snar leggur út. Lærarar senda funkurnar til snar.portal@gmail.com í eina
 
 ## Fílurnar
 
-- `index.html` – galleríið (kort, filtur, leiting, «Royn», «Sí kotuna», «Broyt»)
+- `index.html` – framsýningin (kort, filtur, leiting, «Royn», «Sí kotuna», «Broyt»)
 - `ritil.html` – ritilin; `ritil.html?f=funkur/xxx.html` letur eina funku upp
 - `funkur.json` – listin yvir funkurnar
 - `funkur/` – sjálvar funkurnar

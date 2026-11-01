@@ -1,4 +1,4 @@
-/* Funkugalleríið – Snar. Felags stílur til index.html og ritil.html */
+/* Funkuframsýningin – Snar. Felags stílur til index.html og ritil.html */
 :root{--p:#f6f3ea;--p2:#ece7d8;--ink:#1b2430;--ink2:#2c3a4b;--mut:#5b6775;--w:#fff;--line:#d9d2bf;--red:#ef2418;--red2:#b8150c;--yel:#ffc93c;--yel2:#ffe7a3;--navy:#14213d;--c1:#2457d6;--c2:#1f9d6a;--c3:#f07b1a;--c7:#7c4dff}
 *,*::before,*::after{box-sizing:border-box}
 html,body{margin:0;padding:0}

@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Ritil · Funkugalleríið · Snar</title>
+<title>Ritil · Funkuframsýningin · Snar</title>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="felags.css">
 <style>
@@ -30,8 +30,8 @@ iframe{flex:1;width:100%;border:0;background:#fff}
 </head>
 <body>
 <header class="top"><div class="wrap" style="max-width:none">
- <a class="brand" href="./"><b>Snar</b>Funkugalleríið</a>
- <a href="./">← Aftur til galleríið</a>
+ <a class="brand" href="./"><b>Snar</b>Funkuframsýningin</a>
+ <a href="./">← Aftur til framsýningina</a>
 </div></header>
 <div class="bar">
  <h1 data-title>Ritilin<small data-sub>Skriva kotu vinstrumegin – úrslitið kemur høgrumegin.</small></h1>
@@ -51,7 +51,7 @@ iframe{flex:1;width:100%;border:0;background:#fff}
  'use strict';
  var ta=document.querySelector('[data-ta]'),fr=document.querySelector('[data-frame]'),msg=document.querySelector('[data-msg]'),auto=document.querySelector('[data-auto]'),saved=document.querySelector('[data-saved]'),ask=document.querySelector('[data-ask]');
  var TOM='<!DOCTYPE html>\n<html lang="fo">\n<head>\n  <meta charset="utf-8">\n  <title>Mín funka</title>\n  <style>\n    body { font-family: Arial, sans-serif; padding: 20px; }\n  </style>\n</head>\n<body>\n  <h1>Mín funka</h1>\n  <button onclick="trýst()">Trýst her</button>\n  <p id="svar"></p>\n\n  <script>\n    function trýst() {\n      document.getElementById("svar").textContent = "Hey!";\n    }\n  <\/script>\n</body>\n</html>';
- var params=new URLSearchParams(location.search),fila=params.get('f'),start=TOM,KEY='snar-funkugalleri-ritil:'+(fila||'tomt');
+ var params=new URLSearchParams(location.search),fila=params.get('f'),start=TOM,KEY='snar-funkuframsyning-ritil:'+(fila||'tomt');
  if(fila&&!/^funkur\/[\w.\-]+\.html$/.test(fila))fila=null;
  var ERR='<script>window.addEventListener("error",function(e){try{parent.postMessage({kvg:"err",m:String(e.message||e),l:e.lineno||0},"*")}catch(x){}});<\/script>';
  function run(){msg.className='msg';msg.textContent='';var c=ta.value;c=/<head[^>]*>/i.test(c)?c.replace(/<head[^>]*>/i,function(m){return m+ERR;}):ERR+c;fr.srcdoc=c;}

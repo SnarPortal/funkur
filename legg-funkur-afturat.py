@@ -1,4 +1,4 @@
-# Legg funkur afturat í Funkugalleríið
+# Legg funkur afturat í Funkuframsýningina
 #
 #   python -I legg-funkur-afturat.py "C:\leið\til\funkur-6b.zip"     (ella ein mappu við .html-fílum, ella eina einstaka .html-fílu)
 #
@@ -8,7 +8,7 @@
 #        <!-- Funka: Teljari · Gjørd av: Ána, 6b · Kota og vitlíki, Snar -->
 #   3. leggur eina linju afturat í funkur.json við "vis": false.
 #
-# FUNKURNAR SÍGGJAST IKKI, FYRR ENN TÚ HEVUR KANNAÐ TÆR: lat galleríið upp lokalt, hygg at hvørjari funku
+# FUNKURNAR SÍGGJAST IKKI, FYRR ENN TÚ HEVUR KANNAÐ TÆR: lat framsýningina upp lokalt, hygg at hvørjari funku
 # (eingi eftirnøvn, eingin persónlig upplýsing, eingin leinkja út, hon riggar), skriva eitt gott "heiti" og "lysing",
 # og set "vis": true. Legg so funkur/ og funkur.json upp á GitHub.
 import io
