@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Funkuframsýningin · Snar</title>
-<meta name="description" content="Funkur, sum næmingar hava gjørt í Kota og vitlíki á Snar. Royn tær, sí kotuna og broyt tær.">
+<meta name="description" content="Funkur, sum næmingar hava gjørt í Koda og vitlíki á Snar. Royn tær, sí koduna og broyt tær.">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,700;9..144,800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="felags.css">
 <style>
@@ -48,7 +48,7 @@ footer{border-top:2px solid var(--line);padding:20px 0 30px;color:var(--mut);fon
 <body>
 <header class="top"><div class="wrap">
  <a class="brand" href="./"><b>Snar</b>Funkuframsýningin</a>
- <a href="https://snardev.ctrl.fo/temasavn/nattura-og-visindi/kota-og-vitliki" data-snar>← Kota og vitlíki</a>
+ <a href="https://snar.fo/temasavn/nattura-og-visindi/koda-og-vitliki" data-snar>← Koda og vitlíki</a>
  <a href="ritil.html">Tóman ritil</a>
 </div></header>
 
@@ -56,7 +56,7 @@ footer{border-top:2px solid var(--line);padding:20px 0 30px;color:var(--mut);fon
  <section class="wrap hero">
   <p class="kicker">Gjørt av næmingum</p>
   <h1>Funkuframsýningin</h1>
-  <p>Her eru funkur, sum næmingar hava gjørt í Funkusmiðjuni í <i>Kota og vitlíki</i> á Snar. Royn tær, sí kotuna aftan fyri – og broyt tær í ritlinum. Kanst tú gera eina betri?</p>
+  <p>Her eru funkur, sum næmingar hava gjørt í Funkusmiðjuni í <i>Koda og vitlíki</i> á Snar. Royn tær, sí koduna aftan fyri – og broyt tær í ritlinum. Kanst tú gera eina betri?</p>
   <div class="filters" role="group" aria-label="Vel slag">
    <button type="button" data-slag="" aria-pressed="true">Allar</button>
    <button type="button" data-slag="teljari" aria-pressed="false">Teljarar</button>
@@ -70,17 +70,17 @@ footer{border-top:2px solid var(--line);padding:20px 0 30px;color:var(--mut);fon
  <section class="wrap grid" data-grid aria-live="polite"><p class="tomt">Heinti funkurnar …</p></section>
 
  <section class="wrap info">
-  <div><h3>Hvussu kemur ein funka hagar?</h3>Næmingar gera funkur í Funkusmiðjuni í Kota og vitlíki. Lærarin sendir tær til Snar, og Snar leggur tær út her.</div>
-  <div><h3>Tú mást broyta</h3>Trýst á «Broyt», so kemur kotan í ritilin. Tú kanst broyta alt og taka tína útgávu niður – men hon verður ikki goymd her.</div>
+  <div><h3>Hvussu kemur ein funka hagar?</h3>Næmingar gera funkur í Funkusmiðjuni í Koda og vitlíki. Lærarin sendir tær til Snar, og Snar leggur tær út her.</div>
+  <div><h3>Tú mást broyta</h3>Trýst á «Broyt», so kemur kodan í ritilin. Tú kanst broyta alt og taka tína útgávu niður – men hon verður ikki goymd her.</div>
   <div><h3>Trygt</h3>Hvør funka koyrir í sínari egnu trygdarramma og kann ikki síggja ella broyta nakað annað. Á Snar stendur bert fornavn og flokkur.</div>
  </section>
 </main>
 
-<footer><div class="wrap">Funkuframsýningin · Snar · Útgivið av Námi · <a href="https://snardev.ctrl.fo/temasavn/nattura-og-visindi/kota-og-vitliki" data-snar>Kota og vitlíki</a></div></footer>
+<footer><div class="wrap">Funkuframsýningin · Snar · Útgivið av Námi · <a href="https://snar.fo/temasavn/nattura-og-visindi/koda-og-vitliki" data-snar>Koda og vitlíki</a></div></footer>
 
 <div class="modal" data-modal hidden role="dialog" aria-modal="true" aria-labelledby="m-title">
  <div class="modal__box">
-  <div class="modal__bar"><b id="m-title" data-m-title></b><a class="btn btn--sm" data-m-edit href="#">Broyt í ritlinum</a><button class="btn btn--sm" type="button" data-m-code>Sí kotuna</button><button class="btn btn--sm btn--red" type="button" data-m-close>Lat aftur ✕</button></div>
+  <div class="modal__bar"><b id="m-title" data-m-title></b><a class="btn btn--sm" data-m-edit href="#">Broyt í ritlinum</a><button class="btn btn--sm" type="button" data-m-code>Sí koduna</button><button class="btn btn--sm btn--red" type="button" data-m-close>Lat aftur ✕</button></div>
   <iframe data-m-frame title="Funkan" sandbox="allow-scripts allow-modals allow-forms"></iframe>
   <pre data-m-pre hidden></pre>
  </div>
@@ -101,7 +101,7 @@ footer{border-top:2px solid var(--line);padding:20px 0 30px;color:var(--mut);fon
   if(!vis.length){grid.innerHTML='<p class="tomt">Eingin funka passar. Royn eitt annað orð ella vel «Allar».</p>';return;}
   grid.innerHTML=vis.map(function(f,i){var n=list.indexOf(f);return '<article class="card"><div class="card__view"><iframe tabindex="-1" aria-hidden="true" sandbox="allow-scripts" data-src="'+esc(f.fila)+'" title="Forsýning"></iframe><span class="card__slag">'+esc(SLAG[f.slag]||'Annað')+'</span><button type="button" data-open="'+n+'" aria-label="Royn '+esc(f.heiti)+'"></button></div>'
    +'<div class="card__body"><h2>'+esc(f.heiti)+'</h2><span class="card__by">Gjørd av '+esc(by(f))+'</span><p>'+esc(f.lysing||'')+'</p>'
-   +'<div class="card__btns"><button class="btn btn--sm btn--red" type="button" data-open="'+n+'">Royn</button><button class="btn btn--sm" type="button" data-code="'+n+'">Sí kotuna</button><a class="btn btn--sm btn--blue" href="ritil.html?f='+encodeURIComponent(f.fila)+'">Broyt</a></div></div></article>';}).join('');
+   +'<div class="card__btns"><button class="btn btn--sm btn--red" type="button" data-open="'+n+'">Royn</button><button class="btn btn--sm" type="button" data-code="'+n+'">Sí koduna</button><a class="btn btn--sm btn--blue" href="ritil.html?f='+encodeURIComponent(f.fila)+'">Broyt</a></div></div></article>';}).join('');
   grid.querySelectorAll('iframe[data-src]').forEach(function(x){fill(x,x.getAttribute('data-src'));});
  }
  fetch('funkur.json',{cache:'no-store'}).then(function(r){return r.json();}).then(function(d){
@@ -118,10 +118,10 @@ footer{border-top:2px solid var(--line);padding:20px 0 30px;color:var(--mut);fon
   /* bíða, til glugginn er teknaður, og so «nudda» rammuna, tá ið funkan er innlisin, so kagin teknar hana */
   nf.addEventListener('load',function(){nf.style.minHeight='99%';requestAnimationFrame(function(){nf.style.minHeight='';});});
   setTimeout(function(){nf.srcdoc=curCode;},60);}}
- function open(n,showCode){var f=list[n];last=document.activeElement;modal.hidden=false;modal.querySelector('[data-m-title]').innerHTML=esc(f.heiti)+'<small>Gjørd av '+esc(by(f))+'</small>';modal.querySelector('[data-m-edit]').href='ritil.html?f='+encodeURIComponent(f.fila);curCode='';newFrame();pre.textContent='Heinti kotuna …';
+ function open(n,showCode){var f=list[n];last=document.activeElement;modal.hidden=false;modal.querySelector('[data-m-title]').innerHTML=esc(f.heiti)+'<small>Gjørd av '+esc(by(f))+'</small>';modal.querySelector('[data-m-edit]').href='ritil.html?f='+encodeURIComponent(f.fila);curCode='';newFrame();pre.textContent='Heinti koduna …';
   setMode(!!showCode);modal.querySelector('[data-m-close]').focus();document.body.style.overflow='hidden';
-  code(f.fila).then(function(t){pre.textContent=t;curCode=t;show();}).catch(function(){pre.textContent='Kundi ikki heinta kotuna.';});}
- function setMode(c){pre.hidden=!c;frame.hidden=c;codeBtn.textContent=c?'Royn funkuna':'Sí kotuna';if(!c)show();}
+  code(f.fila).then(function(t){pre.textContent=t;curCode=t;show();}).catch(function(){pre.textContent='Kundi ikki heinta koduna.';});}
+ function setMode(c){pre.hidden=!c;frame.hidden=c;codeBtn.textContent=c?'Royn funkuna':'Sí koduna';if(!c)show();}
  function close(){modal.hidden=true;curCode='';newFrame();document.body.style.overflow='';if(last)last.focus();}
  grid.addEventListener('click',function(e){var o=e.target.closest('[data-open]'),c=e.target.closest('[data-code]');if(o)open(+o.getAttribute('data-open'),false);if(c)open(+c.getAttribute('data-code'),true);});
  codeBtn.addEventListener('click',function(){setMode(!pre.hidden?false:true);});

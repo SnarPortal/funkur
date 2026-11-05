@@ -5,7 +5,7 @@
 # Skriptið
 #   1. tekur .html-fílurnar úr zip-fíluni (ella mappuni) og avritar tær í funkur/ (navnið verður gjørt trygt),
 #   2. lesur viðmerkingina ovast í fíluni, sum Funkusmiðjan setir inn:
-#        <!-- Funka: Teljari · Gjørd av: Ána, 6b · Kota og vitlíki, Snar -->
+#        <!-- Funka: Teljari · Gjørd av: Ána, 6b · Koda og vitlíki, Snar -->
 #   3. leggur eina linju afturat í funkur.json við "vis": false.
 #
 # FUNKURNAR SÍGGJAST IKKI, FYRR ENN TÚ HEVUR KANNAÐ TÆR: lat framsýningina upp lokalt, hygg at hvørjari funku

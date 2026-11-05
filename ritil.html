@@ -34,7 +34,7 @@ iframe{flex:1;width:100%;border:0;background:#fff}
  <a href="./">← Aftur til framsýningina</a>
 </div></header>
 <div class="bar">
- <h1 data-title>Ritilin<small data-sub>Skriva kotu vinstrumegin – úrslitið kemur høgrumegin.</small></h1>
+ <h1 data-title>Ritilin<small data-sub>Skriva kodu vinstrumegin – úrslitið kemur høgrumegin.</small></h1>
  <label><input type="checkbox" data-auto checked> Koyr sjálvvirkandi</label>
  <button class="btn btn--sm btn--red" type="button" data-run>▶ Koyr</button>
  <button class="btn btn--sm" type="button" data-dl>Tak niður fílu</button>
@@ -43,7 +43,7 @@ iframe{flex:1;width:100%;border:0;background:#fff}
 </div>
 <div class="ask" data-ask hidden></div>
 <main class="work" data-work>
- <div class="pane"><div class="pt">Kota <span data-saved></span></div><textarea spellcheck="false" aria-label="Kota" data-ta></textarea></div>
+ <div class="pane"><div class="pt">Koda <span data-saved></span></div><textarea spellcheck="false" aria-label="Koda" data-ta></textarea></div>
  <div class="pane"><div class="pt">Úrslit</div><iframe title="Úrslit" sandbox="allow-scripts allow-modals allow-forms" data-frame></iframe><div class="msg" data-msg role="status"></div></div>
 </main>
 <script>
@@ -61,7 +61,7 @@ iframe{flex:1;width:100%;border:0;background:#fff}
  document.querySelector('[data-run]').addEventListener('click',run);
  document.querySelector('[data-lay]').addEventListener('click',function(){document.querySelector('[data-work]').classList.toggle('is-stack');});
  function askBox(text,yes,cb){ask.hidden=false;ask.innerHTML='<span><b>Snar sigur:</b> '+text+'</span><button class="btn btn--sm btn--red" type="button" data-ja>'+yes+'</button><button class="btn btn--sm" type="button" data-nei>Nei</button>';ask.querySelector('[data-ja]').onclick=function(){ask.hidden=true;cb();};ask.querySelector('[data-nei]').onclick=function(){ask.hidden=true;};}
- document.querySelector('[data-reset]').addEventListener('click',function(){askBox('Vilt tú fáa upprunaligu kotuna aftur? Tað, tú hevur broytt, fer burtur.','Ja, byrja umaftur',function(){ta.value=start;try{localStorage.removeItem(KEY);}catch(e){}run();});});
+ document.querySelector('[data-reset]').addEventListener('click',function(){askBox('Vilt tú fáa upprunaligu koduna aftur? Tað, tú hevur broytt, fer burtur.','Ja, byrja umaftur',function(){ta.value=start;try{localStorage.removeItem(KEY);}catch(e){}run();});});
  document.querySelector('[data-dl]').addEventListener('click',function(){var b=new Blob([ta.value],{type:'text/html;charset=utf-8'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=(fila?fila.split('/').pop().replace(/\.html$/,'')+'-broytt':'min-funka')+'.html';document.body.appendChild(a);a.click();setTimeout(function(){a.remove();URL.revokeObjectURL(a.href);},0);});
  function load(code){start=code;var mine=null;try{mine=localStorage.getItem(KEY);}catch(e){}ta.value=mine||code;run();}
  if(fila){
