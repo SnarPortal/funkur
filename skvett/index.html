@@ -3,6 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Skvett">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="theme-color" content="#b9c9c4">
 <title>Skvett</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@500;700;800&display=swap">
 <style>
@@ -236,6 +241,7 @@ body.anim2 #anim{display:flex!important;flex-direction:column;padding:6px 0;gap:
 .tlt{position:relative;height:100%}.tlbar{position:absolute;top:3px;height:20px;border:2px solid var(--ink);color:#fff;font-size:11px;font-weight:700;padding:0 6px;white-space:nowrap;overflow:hidden;cursor:grab;touch-action:none;display:flex;align-items:center}.tlbar:active{cursor:grabbing}
 .tlhd{position:absolute;right:0;top:0;bottom:0;width:8px;background:rgba(255,255,255,.55);cursor:ew-resize}.tlk{position:absolute;top:2px;color:var(--ink)}.tlph{position:absolute;top:0;bottom:0;width:2px;background:#e5252a;pointer-events:none}
 /* telefon */
+#fstip{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:60;background:#fff;border:3px solid var(--ink);padding:16px 18px;max-width:340px;display:flex;flex-direction:column;gap:8px;box-shadow:4px 5px 0 rgba(38,38,46,.25)}#fstip b{font-size:16px}#fstip p{margin:0;font-size:14px;line-height:1.35}#fstip .tb{align-self:flex-start}
 #vend{display:none}
 @media (orientation:portrait) and (max-width:600px){#vend{display:flex;position:fixed;inset:0;z-index:999;background:var(--bord);flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:30px;text-align:center}#vend svg{width:120px;height:120px;animation:vend 2.4s ease-in-out infinite}#vend b{font-size:26px}#vend span{font-size:15px;max-width:260px}}
 @keyframes vend{0%,25%{transform:rotate(0)}55%,85%{transform:rotate(-90deg)}100%{transform:rotate(0)}}
@@ -244,7 +250,7 @@ body.anim2 #anim{display:flex!important;flex-direction:column;padding:6px 0;gap:
  #top{padding-bottom:6px!important}#top::after{bottom:4px!important}#top button,#top a{height:32px!important;padding:0 5px!important}#top label,#top .pg{display:none!important}
  #tools{gap:0!important}#tools button span{display:none!important}#tools button{padding:1px!important;min-height:0!important}
  #corner{zoom:.45!important}#zm,#fugl,#uppg{display:none!important}#klo{zoom:.6}
- #bench{gap:6px!important;padding-top:2px!important;padding-bottom:2px!important}#set{gap:2px!important}#pick{height:40px!important}#set label{height:18px!important;font-size:11px!important}#pots{gap:2px!important;align-self:center!important}#pots button{max-height:27px}
+ #bench{gap:6px!important;padding-top:2px!important;padding-bottom:2px!important}#set{gap:2px!important}#pick{height:40px!important;grid-template-columns:26px minmax(0,1fr) 26px!important}#pick>*{height:36px!important;min-height:0!important}#pick canvas{object-fit:contain}#pick button{font-size:15px!important}#set label{height:18px!important;font-size:11px!important}#pots{gap:2px!important;align-self:center!important}#pots button{max-height:27px}
  #heim{padding:12px!important;gap:10px!important}#heim h1{font-size:34px!important}#heim .hl svg{width:70px!important;height:50px!important}
  body.anim2{grid-template:42px minmax(0,1fr) 110px/0 minmax(0,1fr) 260px!important}#rpane{top:42px!important;bottom:110px!important;width:258px!important}
 }
@@ -1360,7 +1366,8 @@ const STAVIR = [...'AÁBDÐEFGHIÍJKLMNOÓPRSTUÚVYÝÆØ0123456789!?'];
   function silentWav() { const n = 4000, b = new ArrayBuffer(44 + n), v = new DataView(b), w = (o, t) => [...t].forEach((c, i) => v.setUint8(o + i, c.charCodeAt(0))); w(0, 'RIFF'); v.setUint32(4, 36 + n, true); w(8, 'WAVEfmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true); v.setUint32(24, 8000, true); v.setUint32(28, 8000, true); v.setUint16(32, 1, true); v.setUint16(34, 8, true); w(36, 'data'); v.setUint32(40, n, true); for (let i = 0; i < n; i++) v.setUint8(44 + i, 128); return new Blob([b], { type: 'audio/wav' }); }
   function unlock() {
     try { if (navigator.audioSession && navigator.audioSession.type !== 'playback') navigator.audioSession.type = 'playback'; } catch (_) { }
-    if (!navigator.audioSession) { if (!tag) { tag = document.createElement('audio'); tag.src = URL.createObjectURL(silentWav()); tag.loop = true; tag.setAttribute('playsinline', ''); tag.setAttribute('webkit-playsinline', ''); } if (tag.paused && !document.hidden) tag.play().catch(() => { }); }
+    const iOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+    if (iOS || !navigator.audioSession) { if (!tag) { tag = document.createElement('audio'); tag.src = URL.createObjectURL(silentWav()); tag.loop = true; tag.setAttribute('playsinline', ''); tag.setAttribute('webkit-playsinline', ''); } if (tag.paused && !document.hidden) tag.play().catch(() => { }); }
     try { on(); const b = ac.createBuffer(1, 1, 22050), s = ac.createBufferSource(); s.buffer = b; s.connect(ac.destination); s.start(0); } catch (_) { }
     if (ac && ac.state === 'running') unlocked = true;
   }
@@ -2639,6 +2646,30 @@ const STAVIR = [...'AÁBDÐEFGHIÍJKLMNOÓPRSTUÚVYÝÆØ0123456789!?'];
   addEventListener('keydown', ev => { if (ev.key === 'Escape' && !ov.hidden) close(); });
   document.getElementById('bL').onclick = open;
   window.LAERA = { open, close, keep, list: () => list };
+})();
+</script>
+<script>
+/* Telefon og fullur skermur: knøttur í toppbjálkanum, og á iPhone ein vegleiðing um at leggja Skvett á heimaskíggjan */
+(function () {
+  const M = window.MG, $ = i => document.getElementById(i), iOS = /iP(hone|ad|od)/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const standalone = navigator.standalone || matchMedia('(display-mode: standalone)').matches;
+  const fsEl = () => document.fullscreenElement || document.webkitFullscreenElement, can = document.fullscreenEnabled || document.webkitFullscreenEnabled;
+  /* ikonið til heimaskíggjan verður teknað úr fuglinum */
+  try { const svg = $('fugl').querySelector('svg').cloneNode(true); svg.setAttribute('width', 150); svg.setAttribute('height', 110); const im = new Image(); im.onload = () => { const c = document.createElement('canvas'); c.width = c.height = 180; const x = c.getContext('2d'); x.fillStyle = '#ffe23d'; x.fillRect(0, 0, 180, 180); x.drawImage(im, 15, 35, 150, 110); const l = document.createElement('link'); l.rel = 'apple-touch-icon'; l.href = c.toDataURL('image/png'); document.head.appendChild(l); }; im.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(new XMLSerializer().serializeToString(svg)); } catch (_) { }
+  if (standalone) return;
+  const ON = '<path d="M8 3H3v5M16 3h5v5M3 16v5h5M21 16v5h-5"/>', OFF = '<path d="M8 3v5H3M16 3v5h5M3 16h5v5M21 16h-5v5"/>';
+  const b = document.createElement('button'); b.id = 'bF'; b.setAttribute('aria-label', 'Fullur skermur'); b.title = 'Fullur skermur'; $('bP').after(b);
+  const set = () => { b.innerHTML = M.Ic(fsEl() ? OFF : ON); b.title = fsEl() ? 'Far úr fullum skermi' : 'Fullur skermur'; };
+  set(); document.addEventListener('fullscreenchange', set); document.addEventListener('webkitfullscreenchange', set);
+  let tip = null;
+  b.onclick = () => {
+    if (can) { const d = document.documentElement; if (fsEl()) (document.exitFullscreen || document.webkitExitFullscreen).call(document); else (d.requestFullscreen || d.webkitRequestFullscreen).call(d); return; }
+    if (tip) { tip.remove(); tip = null; return; }
+    tip = document.createElement('div'); tip.id = 'fstip';
+    tip.innerHTML = iOS ? '<b>Fullur skermur á iPhone</b><p>Trýst á <b>Deil</b>-knøttin í Safari (fýrakantin við pílinum upp) og vel <b>Legg á heimaskíggjan</b>.</p><p>So kemur Skvett sum ein app á heimaskíggjan og letur seg upp á fullum skermi.</p>' : '<b>Fullur skermur</b><p>Hesin kagin loyvir ikki fullum skermi her.</p>';
+    const x = document.createElement('button'); x.className = 'tb hi'; x.textContent = 'Lat aftur'; x.onclick = () => { tip.remove(); tip = null; }; tip.appendChild(x); document.body.appendChild(tip);
+  };
+  if (!can && !iOS) b.hidden = true;
 })();
 </script>
 <script>
