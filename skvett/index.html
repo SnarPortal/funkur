@@ -259,6 +259,20 @@ body.anim2 #anim{display:flex!important;flex-direction:column;padding:6px 0;gap:
 <footer id="bench"><div id="set"></div><div id="pots"></div></footer>
 <div id="ring"></div><div id="cur"></div><canvas id="ghost"></canvas>
 <script>
+/* Royndarpanel: opnast við ?royn á adressuni. Vísir, hvat telefonin sigur um ljóðið, og villur, um nakrar eru. */
+(function () {
+  const errs = []; addEventListener('error', e => errs.push((e.message || 'villa') + ' (' + String(e.filename || '').split('/').pop() + ':' + e.lineno + ')')); addEventListener('unhandledrejection', e => errs.push('Promise: ' + (e.reason && e.reason.message || e.reason)));
+  if (!/[?&]royn/.test(location.search)) return;
+  const d = document.createElement('div'); d.style.cssText = 'position:fixed;left:8px;top:8px;z-index:9999;background:#fff;border:3px solid #26262e;padding:10px 12px;font:13px/1.35 system-ui,sans-serif;max-width:320px;max-height:80vh;overflow:auto;box-shadow:3px 4px 0 rgba(0,0,0,.2)';
+  document.body.appendChild(d); let ctx2 = null;
+  const show = () => { const a = window.LJOD && LJOD.on ? null : null; const ac = window.LJOD && LJOD.ctx ? LJOD.ctx() : null; d.innerHTML = `<b>Skvett royndarpanel</b><br>Útgáva: ${document.querySelector('script[src*="ljod"]') ? 'kelda' : 'ein fíla'} · ${new Date(document.lastModified).toLocaleString('fo')}<br>Skíggi: ${innerWidth}×${innerHeight} · ${matchMedia('(orientation:portrait)').matches ? 'á høvdinum' : 'á tvørs'}<br>Kagi: ${navigator.userAgent.replace(/.*(iPhone OS [\d_]+|Android [\d.]+|Mac OS X [\d_]+|Windows NT [\d.]+).*/, '$1')}<br>audioSession: ${navigator.audioSession ? navigator.audioSession.type : 'finst ikki'}<br>Ljóð (AudioContext): ${ac ? ac.state + ' · ' + ac.sampleRate + ' Hz' : 'ikki byrjað enn'}<br>Í rammu: ${top !== self ? 'ja' : 'nei'}<br><br><b>Villur:</b> ${errs.length ? errs.slice(-6).map(x => '<br>• ' + x.replace(/</g, '&lt;')).join('') : 'eingin'}<br><br>`; const b1 = document.createElement('button'), b2 = document.createElement('button'), b3 = document.createElement('button'); [b1, b2, b3].forEach(b => { b.style.cssText = 'border:2px solid #26262e;background:#ffe23d;padding:6px 9px;margin:0 6px 6px 0;font-weight:700'; d.appendChild(b); });
+    b1.textContent = 'Spæl ljóð úr Skvett'; b1.onclick = () => { LJOD.fx.glop(4); setTimeout(show, 300); };
+    b2.textContent = 'Spæl reinan tón'; b2.onclick = () => { try { ctx2 = ctx2 || new (window.AudioContext || window.webkitAudioContext)(); ctx2.resume(); const o = ctx2.createOscillator(), g = ctx2.createGain(); o.frequency.value = 440; g.gain.value = .2; o.connect(g).connect(ctx2.destination); o.start(); o.stop(ctx2.currentTime + .4); } catch (e) { errs.push('Tónur: ' + e.message); } setTimeout(show, 500); };
+    b3.textContent = 'Dagfør'; b3.onclick = show; };
+  setTimeout(show, 800);
+})();
+</script>
+<script>
 /* Tússar: ger leyst krittstrik og tússulit á canvas úr vanligum SVG-vegum.
    Hvørt strik verður gjørt trý ferð eitt sindur ymiskt, og so verður skift millum tey,
    so tekningin altíð rørir seg. Øki verða fylt við tússuflísum, so tað er lætt at tekna. */
@@ -1342,6 +1356,7 @@ const STAVIR = [...'AÁBDÐEFGHIÍJKLMNOÓPRSTUÚVYÝÆØ0123456789!?'];
   const on = () => { if (!ac) setup(new (window.AudioContext || window.webkitAudioContext)()); if (ac.state !== 'running' && ac.state !== 'closed' && ac.close) ac.resume().catch(() => { }); return ac; };
   /* iPhone og iPad: ljóðið má vekjast inni í einum trýsti, og við tagnarknøttinum á verður ljóð av vevsíðum tagt, uttan síðan biður um at spæla sum «playback» */
   let tag = null, unlocked = false;
+  try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch (_) { }
   function silentWav() { const n = 4000, b = new ArrayBuffer(44 + n), v = new DataView(b), w = (o, t) => [...t].forEach((c, i) => v.setUint8(o + i, c.charCodeAt(0))); w(0, 'RIFF'); v.setUint32(4, 36 + n, true); w(8, 'WAVEfmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true); v.setUint32(24, 8000, true); v.setUint32(28, 8000, true); v.setUint16(32, 1, true); v.setUint16(34, 8, true); w(36, 'data'); v.setUint32(40, n, true); for (let i = 0; i < n; i++) v.setUint8(44 + i, 128); return new Blob([b], { type: 'audio/wav' }); }
   function unlock() {
     try { if (navigator.audioSession && navigator.audioSession.type !== 'playback') navigator.audioSession.type = 'playback'; } catch (_) { }
@@ -1606,7 +1621,7 @@ const STAVIR = [...'AÁBDÐEFGHIÍJKLMNOÓPRSTUÚVYÝÆØ0123456789!?'];
     film(sec) { for (let i = 0; i < sec * 8; i++) hitN(.012, i % 2 ? 2200 : 1700, .12, 5, i / 8); },
   };
   window.LJOD = {
-    begin, move, stop, group, decode, clip, stream, tune, loop, TUNES, on, fx: new Proxy(FX, { get: (o, k) => (...a) => { if (vol > 0) try { o[k](...a); } catch (e) { console.error(e); } } }),
+    ctx: () => ac, begin, move, stop, group, decode, clip, stream, tune, loop, TUNES, on, fx: new Proxy(FX, { get: (o, k) => (...a) => { if (vol > 0) try { o[k](...a); } catch (e) { console.error(e); } } }),
     vol(v) { vol = v; if (out) out.gain.setTargetAtTime(v, ac.currentTime, .02); },
     /* bert til royndir: teknar ljóðið uttan at spæla tað */
     async test(fn, sec) { const keep = [ac, out, dry, wet, buf, L]; L = null; const o = new OfflineAudioContext(1, 44100 * sec, 44100); setup(o); fn(o); L && L.nodes.forEach(n => n.stop(sec)); const b = await o.startRendering(); [ac, out, dry, wet, buf, L] = keep; return b.getChannelData(0); },
