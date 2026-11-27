@@ -235,9 +235,23 @@ body.anim2 #anim{display:flex!important;flex-direction:column;padding:6px 0;gap:
 .tlrow{display:flex;height:26px;align-items:center;border-bottom:1px solid #e6e3e3}.tlrow.on{background:#fff8d6}.tlrow .tll{width:190px;flex:none;text-align:left;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 6px 0 4px}
 .tlt{position:relative;height:100%}.tlbar{position:absolute;top:3px;height:20px;border:2px solid var(--ink);color:#fff;font-size:11px;font-weight:700;padding:0 6px;white-space:nowrap;overflow:hidden;cursor:grab;touch-action:none;display:flex;align-items:center}.tlbar:active{cursor:grabbing}
 .tlhd{position:absolute;right:0;top:0;bottom:0;width:8px;background:rgba(255,255,255,.55);cursor:ew-resize}.tlk{position:absolute;top:2px;color:var(--ink)}.tlph{position:absolute;top:0;bottom:0;width:2px;background:#e5252a;pointer-events:none}
+/* telefon */
+#vend{display:none}
+@media (orientation:portrait) and (max-width:600px){#vend{display:flex;position:fixed;inset:0;z-index:999;background:var(--bord);flex-direction:column;align-items:center;justify-content:center;gap:18px;padding:30px;text-align:center}#vend svg{width:120px;height:120px;animation:vend 2.4s ease-in-out infinite}#vend b{font-size:26px}#vend span{font-size:15px;max-width:260px}}
+@keyframes vend{0%,25%{transform:rotate(0)}55%,85%{transform:rotate(-90deg)}100%{transform:rotate(0)}}
+@media (max-height:480px){
+ body{grid-template-rows:40px minmax(0,1fr) 64px!important;grid-template-columns:96px minmax(0,1fr) 30px!important}
+ #top{padding-bottom:6px!important}#top::after{bottom:4px!important}#top button,#top a{height:32px!important;padding:0 5px!important}#top label,#top .pg{display:none!important}
+ #tools{gap:0!important}#tools button span{display:none!important}#tools button{padding:1px!important;min-height:0!important}
+ #corner{zoom:.45!important}#zm,#fugl,#uppg{display:none!important}#klo{zoom:.6}
+ #bench{gap:6px!important;padding-top:2px!important;padding-bottom:2px!important}#set{gap:2px!important}#pick{height:40px!important}#set label{height:18px!important;font-size:11px!important}#pots{gap:2px!important;align-self:center!important}#pots button{max-height:27px}
+ #heim{padding:12px!important;gap:10px!important}#heim h1{font-size:34px!important}#heim .hl svg{width:70px!important;height:50px!important}
+ body.anim2{grid-template:42px minmax(0,1fr) 110px/0 minmax(0,1fr) 260px!important}#rpane{top:42px!important;bottom:110px!important;width:258px!important}
+}
 </style>
 </head>
 <body>
+<div id="vend" aria-live="polite"><svg viewBox="0 0 64 64" fill="none" stroke="#26262e" stroke-width="3" stroke-linejoin="round"><rect x="20" y="6" width="24" height="44" rx="4" fill="#fff"/><path d="M29 44h6"/><path d="M50 52a22 22 0 0 1-30 6" stroke="#e5252a"/><path d="M24 54l-4 4 6 2" stroke="#e5252a"/></svg><b>Vend telefonini</b><span>Skvett riggar best, tá ið telefonin liggur á tvørs.</span></div>
 <header id="top"></header>
 <nav id="left"><div id="tools"></div><button id="corner"></button></nav>
 <main id="stagecell"><div id="wrap"><canvas id="stage" width="1280" height="720"></canvas><canvas id="live" width="1600" height="900"></canvas><div id="hint" hidden></div><div id="mini"></div><div id="knob"></div></div></main>
@@ -1325,7 +1339,18 @@ const STAVIR = [...'AÁBDÐEFGHIÍJKLMNOÓPRSTUÚVYÝÆØ0123456789!?'];
     for (let i = 0; i < n; i++) { if (k++ > len) { k = 0; len = ac.sampleRate / hz * rand(.4, 1.8); to = Math.random() < deep * .45 ? rand(-1, -.6) : rand(-.5, 1); } v += (to - v) * .02 * Math.min(8, hz / 60); d[i] = v; }
     return b;
   }
-  const on = () => { if (!ac) setup(new (window.AudioContext || window.webkitAudioContext)()); if (ac.state === 'suspended' && ac.close) ac.resume(); return ac; };
+  const on = () => { if (!ac) setup(new (window.AudioContext || window.webkitAudioContext)()); if (ac.state !== 'running' && ac.state !== 'closed' && ac.close) ac.resume().catch(() => { }); return ac; };
+  /* iPhone og iPad: ljóðið má vekjast inni í einum trýsti, og við tagnarknøttinum á verður ljóð av vevsíðum tagt, uttan síðan biður um at spæla sum «playback» */
+  let tag = null, unlocked = false;
+  function silentWav() { const n = 4000, b = new ArrayBuffer(44 + n), v = new DataView(b), w = (o, t) => [...t].forEach((c, i) => v.setUint8(o + i, c.charCodeAt(0))); w(0, 'RIFF'); v.setUint32(4, 36 + n, true); w(8, 'WAVEfmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true); v.setUint32(24, 8000, true); v.setUint32(28, 8000, true); v.setUint16(32, 1, true); v.setUint16(34, 8, true); w(36, 'data'); v.setUint32(40, n, true); for (let i = 0; i < n; i++) v.setUint8(44 + i, 128); return new Blob([b], { type: 'audio/wav' }); }
+  function unlock() {
+    try { if (navigator.audioSession && navigator.audioSession.type !== 'playback') navigator.audioSession.type = 'playback'; } catch (_) { }
+    if (!navigator.audioSession) { if (!tag) { tag = document.createElement('audio'); tag.src = URL.createObjectURL(silentWav()); tag.loop = true; tag.setAttribute('playsinline', ''); tag.setAttribute('webkit-playsinline', ''); } if (tag.paused && !document.hidden) tag.play().catch(() => { }); }
+    try { on(); const b = ac.createBuffer(1, 1, 22050), s = ac.createBufferSource(); s.buffer = b; s.connect(ac.destination); s.start(0); } catch (_) { }
+    if (ac && ac.state === 'running') unlocked = true;
+  }
+  ['touchend', 'pointerup', 'click', 'keydown'].forEach(t => addEventListener(t, () => { if (!unlocked || !ac || ac.state !== 'running') unlock(); }, { capture: true, passive: true }));
+  document.addEventListener('visibilitychange', () => { if (document.hidden) { if (tag) tag.pause(); } else { unlocked = false; } });
   let grp = null, dest = null;
   const bus = (g, w) => { if (grp) { g.connect(grp); return; } g.connect(dry); if (w) g.connect(wet); };
   /* ein bólkur av ljóðum, sum kann støðgast í einum */
