@@ -257,6 +257,29 @@ body.anim2 #anim{display:flex!important;flex-direction:column;padding:6px 0;gap:
  #heim{padding:12px!important;gap:10px!important}#heim h1{font-size:34px!important}#heim .hl svg{width:70px!important;height:50px!important}
  body.anim2{grid-template:42px minmax(0,1fr) 110px/0 minmax(0,1fr) 260px!important}#rpane{top:42px!important;bottom:110px!important;width:258px!important}
 }
+ /* tíðarlinjan við einum raði fyri hvønn figur */
+body.anim2{grid-template:76px minmax(0,1fr) minmax(230px,38vh)/0 minmax(0,1fr) 0!important;grid-template-areas:"top top top" "left stage x" "bench bench bench"!important}body.anim2 #rpane{display:none!important}
+body.anim2 #anim{padding:0!important;gap:0!important;background:#fff;border-top:2px solid var(--ink)}
+#anim .th{display:flex;align-items:center;gap:10px;padding:6px 10px;border-bottom:2px solid var(--ink);background:#e9e2d2;flex:none}#anim .thint{flex:1;font-size:13px;min-width:0}
+#anim .tsc{flex:1;overflow:auto;min-height:0;touch-action:pan-x pan-y;position:relative}#anim .tin{position:relative;min-height:100%}
+#anim .trul{display:flex;height:24px;position:sticky;top:0;z-index:3;background:#fff;border-bottom:1px solid #d8d4cc}#anim .trul .tr{position:relative;height:100%}
+#anim .trul i{position:absolute;top:0;height:100%;border-left:1px solid #b9b5ad;font-style:normal;font-size:11px;white-space:nowrap;padding:4px 0 0 4px;color:#5c5a55}#anim .trul i.mn{height:6px;top:auto;bottom:0}
+#anim .tclick{border:0!important;height:auto!important;top:3px!important;padding:0!important;margin-left:-7px;color:var(--ink)!important}
+#anim .tlab{position:sticky;left:0;z-index:2;width:170px;flex:none;display:flex;align-items:center;gap:8px;padding:0 8px;background:#f6f3ec;border-right:2px solid var(--ink);text-align:left;font-weight:700;font-size:13px;min-width:0}#anim .tlab span{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#anim .tlab canvas{width:40px;height:40px;flex:none;background:#fff;border:1px solid #d8d4cc}#anim .tlab .tic{width:40px;height:40px;display:grid;place-items:center;flex:none;border:1px solid #d8d4cc;background:#fff}
+#anim .trow{display:flex;height:60px;border-bottom:1px solid #e6e3e3}#anim .trow.on{background:#fff8d6}#anim .trow.on .tlab{background:#ffe23d}#anim .trow.ark{height:48px;background:#f4f6ff}#anim .trow.ark .tlab{background:#e6eaff}#anim .trow.ark .tic{width:30px;height:30px}
+#anim .trow>.tr{position:relative}
+.tb2{position:absolute;top:6px;height:46px;border:2px solid var(--ink);color:#fff;display:flex;flex-direction:column;justify-content:center;padding:0 8px 0 6px;cursor:grab;touch-action:none;overflow:hidden;text-align:left;font:inherit}.tb2:active{cursor:grabbing}.tb2.on{outline:3px solid #ffe23d;outline-offset:1px;z-index:2}.tb2.drg{opacity:.85;z-index:3;box-shadow:3px 4px 0 rgba(38,38,46,.3)}
+.tb2 .bt{display:flex;align-items:center;gap:5px;font-weight:800;font-size:12px;white-space:nowrap}.tb2 .bs{display:flex;align-items:center;gap:4px;margin-top:3px;font-size:11px;font-weight:600;white-space:nowrap;background:rgba(255,255,255,.88);color:var(--ink);padding:1px 5px;align-self:flex-start;max-width:100%;overflow:hidden;border:1px dashed var(--ink)}.tb2 .bs.own{border-style:solid;background:#fff}
+.tb2.snd{background:#7a8cff;height:34px;top:12px}.trow.ark .tb2{top:6px;height:34px}.tb2 .bk{position:absolute;right:12px;top:4px;color:#fff}
+.tb2 .bh{position:absolute;right:0;top:0;bottom:0;width:10px;background:rgba(255,255,255,.45);cursor:ew-resize}
+.tadd{position:absolute;top:14px;width:32px;height:32px;border:2px dashed var(--ink)!important;background:#fff!important;font-size:22px;font-weight:800;line-height:1;display:grid;place-items:center}.tadd:hover{background:#ffe23d!important;border-style:solid!important}.trow.ark .tadd{top:8px}
+#anim .tph{position:absolute;top:0;bottom:0;width:2px;background:#e5252a;z-index:4;pointer-events:none}
+#tpop{position:fixed;z-index:40;width:330px;max-width:calc(100vw - 16px);max-height:min(70vh,560px);background:#fff;border:3px solid var(--ink);display:flex;flex-direction:column;box-shadow:4px 5px 0 rgba(38,38,46,.25)}#tpop .ph{display:flex;align-items:center;justify-content:space-between;padding:8px 8px 8px 12px;border-bottom:2px solid var(--ink);background:#e9e2d2}
+#tpop .pb{padding:10px 12px;overflow:auto;display:flex;flex-direction:column;gap:8px;touch-action:pan-y}#tpop .rdr{display:flex;gap:6px;flex-wrap:wrap;align-items:center}#tpop .tb{min-height:34px;font-size:13px}#tpop .tb.wide{width:100%;justify-content:flex-start}#tpop .tb small{font-weight:500}
+#tpop .rlab{display:flex;align-items:center;gap:6px;font-weight:800;font-size:13px;margin-top:4px}#tpop .snow{flex:1;font-weight:700}#tpop .snow small{font-weight:500;color:#5c5a55}#tpop .rtip{margin:0;font-size:13px}#tpop .rck{display:flex;align-items:center;gap:8px;font-size:13px}#tpop .rck input{width:18px;height:18px}#tpop .sp2{max-height:240px}
+#rgal .gg small{display:flex;align-items:center;gap:4px;font-size:11px;color:#5c5a55;padding-bottom:4px}
+@media (max-height:480px){body.anim2{grid-template-rows:40px minmax(0,1fr) 150px!important}#anim .trow{height:50px}.tb2{height:38px;top:5px}#anim .tlab{width:120px}#anim .tlab canvas{width:30px;height:30px}}
 </style>
 </head>
 <body>
@@ -1545,6 +1568,27 @@ const STAVIR = [...'AÁBDÐEFGHIÍJKLMNOÓPRSTUÚVYÝÆØ0123456789!?'];
       S[id] ? S[id]() : [0, 1, 2].forEach(i => tone(note(i * 2), note(i * 2), .18, 'triangle', .12, i * .06));
     },
     vox,
+    /* ljóðið, sum fylgir eini rørslu av sær sjálvum: k = rørslan, d = hvussu leingi, who = hvør figurur */
+    auto(k, d, who) {
+      d = Math.max(.3, d || 2); const steps = (gap, f0) => { for (let t = .05, i = 0; t < d - .05; t += gap, i++) { hitN(.05, (f0 || 420) * (i % 2 ? 1.12 : 1), .55, 2.2, t); tone(140, 90, .05, 'sine', .14, t); } };
+      if (k === 'inn' || k === 'ut' || k === 'leid') steps(.34);
+      else if (k === 'renn') steps(.17, 520);
+      else if (k === 'fljinn' || k === 'fljut') { swoosh(d * .9, k === 'fljinn' ? 2400 : 500, k === 'fljinn' ? 500 : 2400, .45, 1.2); for (let t = .05; t < d - .1; t += .22) swoosh(.1, 900, 1600, .2, 2, t); }
+      else if (k === 'falla') { tone(1500, 280, Math.min(.9, d * .55), 'sine', .1); hitN(.12, 180, 1, 1.5, Math.min(.9, d * .55)); tone(120, 50, .2, 'sine', .4, Math.min(.9, d * .55)); }
+      else if (k === 'vaksa' || k === 'spretta') { tone(260, 900, .16, 'sine', .2); drop(700, .16, .14); }
+      else if (k === 'tona' || k === 'tonaut') { [0, 4, 7, 11].forEach((n, i) => { const f = note(n) * 2; tone(f, f, .5, 'sine', .07, (k === 'tona' ? i : 3 - i) * d / 5); }); }
+      else if (k === 'snuinn' || k === 'snara') { swoosh(d, 400, 3000, .35, 2); tone(300, 900, d, 'triangle', .05); }
+      else if (k === 'hopp') { for (let t = 0; t < d - .1; t += .55) { tone(180, 520, .18, 'sine', .16, t); tone(520, 300, .14, 'sine', .1, t + .17); } }
+      else if (k === 'vagga') { for (let t = 0, i = 0; t < d - .1; t += .7, i++) hitN(.04, i % 2 ? 1500 : 1100, .5, 8, t); }
+      else if (k === 'dansa') tune('dans', d);
+      else if (k === 'skjalva') { for (let t = 0; t < d; t += .06) hitN(.05, 160, .35, 2, t); }
+      else if (k === 'slaa') { for (let t = 0; t < d - .1; t += 1) { tone(90, 60, .12, 'sine', .4, t); tone(90, 60, .1, 'sine', .3, t + .22); } }
+      else if (k === 'flota') { tone(330, 349, d, 'sine', .05); tone(495, 520, d, 'sine', .03); for (let t = 0; t < d; t += .5) tone(note(9 + (t * 4 % 5)) * 2, note(9) * 2, .3, 'sine', .04, t); }
+      else if (k === 'blinka') { for (let t = 0; t < d - .1; t += .35) tone(1760, 1760, .12, 'sine', .07, t); }
+      else if (k === 'tala') { const q = FOLKID[who] && FOLKID[who].vx; const pitch = q ? q[1] : 260; const V = 'aeiouø'; let t = 0; while (t < d - .15) { const n = 2 + Math.floor(rand(0, 3)), seq = [...Array(n)].map(() => V[Math.floor(rand(0, 6))]).join(''); sing(seq, pitch * rand(.92, 1.1), .11, .45, Object.assign({}, q ? q[3] : {}, { at: t })); t += n * .1 + rand(.12, .3); } }
+      else if (k === 'hvorva') { swoosh(.4, 600, 4000, .4, 1, Math.max(0, d * .4)); hitN(.08, 2600, .3, 1, Math.max(0, d * .4)); }
+      else if (k === 'sokka') { for (let i = 0; i < 6; i++) drop(500 - i * 50, .14, i * d / 7); }
+    },
     vowel(v) { sing(v, 240, .32, .4, { down: 1.05 }); },
     /* ein lutur úr dósini lendir */
     land(k) {
@@ -2264,7 +2308,8 @@ const STAVIR = [...'AÁBDÐEFGHIÍJKLMNOÓPRSTUÚVYÝÆØ0123456789!?'];
   /* spælir eitt ljóð; G = bólkur, sum kann støðgast */
   async function playSnd(s, G, sec) {
     if (!s) return; const own = !G; G = G || LJOD.group();
-    if (s.t === 'lib') { const [k, v] = s.id.split(':'); G.run(() => { if (k === 'tune') LJOD.tune(v, sec || 4); else fxs[k](isNaN(+v) || v === '' ? v : +v); }); }
+    if (s.t === 'auto') G.run(() => fxs.auto(s.k, s.d, s.w));
+    else if (s.t === 'lib') { const [k, v] = s.id.split(':'); G.run(() => { if (k === 'tune') LJOD.tune(v, sec || 4); else fxs[k](isNaN(+v) || v === '' ? v : +v); }); }
     else { const b = await audio(s.id); if (b) LJOD.clip(b, G, 1.2); }
     return own ? G : null;
   }
@@ -2341,7 +2386,7 @@ const STAVIR = [...'AÁBDÐEFGHIÍJKLMNOÓPRSTUÚVYÝÆØ0123456789!?'];
   function stopSnd() { if (!P) return; if (P.G) P.G.stop(); P.to.forEach(clearTimeout); P.to = []; P.G = null; }
   function dur(p) { let d = p.sec || 4; if (p.snd && p.snd.d) d = Math.max(d, p.snd.d + .4); const T = RORSLA.total(p, P && P.pl ? P.pl.clicks : [], P && P.pl ? P.pl.auto : true); if (!isFinite(T)) return Infinity; d = Math.max(d, T + .8); p.list.forEach(o => { if (!o.b && o.snd) d = Math.max(d, (o.snd.d || 1.2) + .2); }); return d; }
   function click() { if (!P || !P.pl) return; P.pl.clicks.push((performance.now() - P.t0) / 1000); P.pl.stamp++; P.pl.cache = null; fxs.hover(3); }
-  function entSnd(p, u) { const C = P.pl && P.pl.cache; if (!C) return; C.list.forEach(q => { if (u >= q.s && !P.d2.has(q.e.id)) { P.d2.add(q.e.id); const o = p.list.find(x => x.i === q.e.o), s = q.e.snd || (o && o.snd && C.list.find(z => z.e.o === o.i) === q ? o.snd : null); if (s) playSnd(s, P.G, 3); } }); }
+  function entSnd(p, u) { const C = P.pl && P.pl.cache; if (!C) return; C.list.forEach(q => { if (u >= q.s && !P.d2.has(q.e.id)) { P.d2.add(q.e.id); const o = p.list.find(x => x.i === q.e.o), s = RORSLA.sndOf(q.e, o, q.d) || (o && o.snd && C.list.find(z => z.e.o === o.i) === q ? o.snd : null); if (s) playSnd(s, P.G, 3); } }); }
   function waitHint(u) { const C = P.pl && P.pl.cache; if (!C || C.list.some(q => isFinite(q.s) && q.end > u)) return; const k = .5 + .5 * Math.sin(u * 5); px.save(); px.globalAlpha = .55 + .45 * k; px.fillStyle = '#ffe23d'; px.strokeStyle = '#26262e'; px.lineWidth = 3; px.beginPath(); px.arc(1200, 640, 30 + 4 * k, 0, 6.3); px.fill(); px.stroke(); px.fillStyle = '#26262e'; px.font = '800 20px Inter,system-ui,sans-serif'; px.textAlign = 'center'; px.fillText('Trýst', 1200, 647); px.restore(); }
   function show(i) {
     const st = S(); if (i < 0) i = 0; if (i >= st.pages.length) { if (P.cb || P.auto) { if (P.cb) { stop(); return; } P.done = true; pause(); P.mpos = P.moff = 0; } return; }
@@ -2469,14 +2514,14 @@ const STAVIR = [...'AÁBDÐEFGHIÍJKLMNOÓPRSTUÚVYÝÆØ0123456789!?'];
     if (p.ani) return p.ani; const A = []; p.list.forEach(o => { if (o.b || !o.an) return; let t = 0, s = o.an, i = 0; while (s) { t += s.w || 0; const d = M.aniLen1(s); A.push({ id: nid() + i, o: o.i, k: s.k, st: 'saman', w: Math.round(t * 10) / 10, d, p: s.p, gamal: 1 }); t += d; s = s.n; i++; } delete o.an; });
     A.sort((a, b) => a.w - b.w); return p.ani = A;
   }
-  const L0 = e => e.k === 'leid' ? (((e.p || []).slice(-1)[0] || [0])[0] + .3) : (INFO[e.k] || { d: 2 }).d || 2;
+  const L0 = e => e.k === 'ljod' ? (e.snd && e.snd.d) || 2 : e.k === 'leid' ? (((e.p || []).slice(-1)[0] || [0])[0] + .3) : (INFO[e.k] || { d: 2 }).d || 2;
   /* tíðarætlanin: hvussu nær byrjar og endar hvør rørsla. clicks = tíðirnar, tá ið trýst varð */
   function plan(p, clicks, auto) {
-    const A = ani(p).filter(e => p.list.some(o => o.i === e.o)), out = []; let anc = 0, prevA = 0, prevE = 0, ci = 0, maxE = 0;
+    const A = ani(p).filter(e => e.o === '_ark' || p.list.some(o => o.i === e.o)), out = []; let anc = 0, prevA = 0, prevE = 0, ci = 0, maxE = 0, sec = 0;
     A.forEach((e, n) => {
-      if (e.st === 'klikk') { if (auto) anc = (n ? maxE : 0) + (n ? .6 : 0); else anc = clicks && ci < clicks.length ? clicks[ci] : Infinity; ci++; }
-      else if (e.st === 'saman') anc = n ? prevA : 0; else anc = n ? prevE : 0;
-      const s = anc + (e.w || 0), d = Math.max(.2, e.d || L0(e)); out.push({ e, s, d, end: s + d, klikk: e.st === 'klikk' }); prevA = anc; prevE = s + d; if (isFinite(s + d)) maxE = Math.max(maxE, s + d);
+      if (e.st === 'klikk') { if (auto) anc = (n ? maxE : 0) + (n ? .6 : 0); else anc = clicks && ci < clicks.length ? clicks[ci] : Infinity; ci++; sec = anc; }
+      else if (e.st === 'tid') anc = sec; else if (e.st === 'saman') anc = n ? prevA : 0; else anc = n ? prevE : 0;
+      const s = anc + (e.w || 0), d = Math.max(.2, e.d || L0(e)); out.push({ e, s, d, end: s + d, klikk: e.st === 'klikk', sec }); prevA = anc; prevE = s + d; if (isFinite(s + d)) maxE = Math.max(maxE, s + d);
     });
     return { list: out, end: maxE, wait: out.some(x => !isFinite(x.s)) };
   }
@@ -2486,7 +2531,7 @@ const STAVIR = [...'AÁBDÐEFGHIÍJKLMNOÓPRSTUÚVYÝÆØ0123456789!?'];
     if (!P || P.at !== PLAY.stamp) { P = PLAY.cache = plan(p, PLAY.clicks, PLAY.auto); P.at = PLAY.stamp; }
     if (PLAY.only) { const x = P.list.find(q => q.e.id === PLAY.only); if (!x) return 'endi'; if (u > x.d + .5) return 'endi'; if (x.e.o !== o.i) return null; return fx(x.e, Math.max(0, u), o, x.d); }
     if (PLAY.id && u > P.end + .6) return 'endi';
-    const E = P.list.filter(q => q.e.o === o.i); if (!E.length) return null; let ox = 0, oy = 0, cur = null;
+    const E = P.list.filter(q => q.e.o === o.i && q.e.k !== 'ljod'); if (!E.length) return null; let ox = 0, oy = 0, cur = null;
     for (const q of E) { if (u < q.s) break; cur = q; if (u >= q.end && q.e.k === 'leid' && q.e.p && q.e.p.length) { const z = q.e.p[q.e.p.length - 1]; ox += z[1]; oy += z[2]; } }
     const off = r => { if (!ox && !oy) return r; r = r || {}; r.x = (r.x || 0) + ox; r.y = (r.y || 0) + oy; return r; };
     if (!cur) return cat(E[0].e.k) === 'inn' ? { a: 0 } : off(null);
@@ -2495,105 +2540,129 @@ const STAVIR = [...'AÁBDÐEFGHIÍJKLMNOÓPRSTUÚVYÝÆØ0123456789!?'];
   }
   function fx(e, u, o, d) { const f = AN[e.k]; if (!f) return null; const L = L0(e), k = L / d, q = u * k + (e.gamal ? 0 : SKIP[e.k] || 0) * (u > 0 ? 1 : 0); const r = f(Math.min(q, L + (e.gamal ? 0 : SKIP[e.k] || 0)), o, e); if (r && r.u != null) r.u = q; return r; }
 
-  /* ---------- rørsluhamurin ---------- */
-  let on = false, sel = null, gal = null, PV = null;
-  const pane = el('aside', '', document.body); pane.id = 'rpane'; pane.hidden = true;
+  /* ---------- ljóðið, sum fylgir rørsluni av sær sjálvum ---------- */
+  const AUTO = { inn: 'Fótafet', ut: 'Fótafet', leid: 'Fótafet', renn: 'Skjót fótafet', fljinn: 'Flog', fljut: 'Flog', falla: 'Fall og dunk', vaksa: 'Popp', spretta: 'Popp', tona: 'Glitur', tonaut: 'Glitur', snuinn: 'Snúgv', snara: 'Snúgv', hopp: 'Hopp', vagga: 'Tikk takk', dansa: 'Dansilag', skjalva: 'Skelving', slaa: 'Hjartasláttur', flota: 'Gandur', blinka: 'Pling', tala: 'Rødd', hvorva: 'Púff', sokka: 'Søkk' };
+  const who = o => o && o.t[0] === 'f' ? o.t.split(':')[1] : '';
+  function sndOf(e, o, d) { if (e.snd) return e.snd; if (e.ljod === false || e.k === 'ljod' || !AUTO[e.k]) return null; return { t: 'auto', k: e.k, d: d || e.d || L0(e), w: who(o || byId(e.o)) }; }
+  const sndName = (e) => e.snd ? (e.snd.t === 'lib' ? (Object.values(SOGA.LIB).flat().find(x => x[0] === e.snd.id) || ['', e.snd.id.startsWith('vox:') ? FOLKID[e.snd.id.slice(4)].n : 'Ljóð'])[1] : e.snd.n || 'Upptøka') : (e.ljod === false || !AUTO[e.k] ? '' : AUTO[e.k]);
+
+  /* ---------- rørsluhamurin: ein tíðarlinja við einum raði fyri hvønn figur ---------- */
+  let on = false, sel = null, gal = null, PV = null, pop = null, PX = 70;
   const tl = $('anim') || el('div', '', $('bench')); tl.id = 'anim';
   const pg = () => M.pg(), byId = i => pg().list.find(o => o.i === i);
-  const figName = o => { if (!o) return '?'; const t = o.t; return t[0] === 'f' ? FOLKID[t.split(':')[1]].n : t[0] === 's' ? 'Stavurin ' + t.slice(2) : t[0] === 't' ? (o.tx ? '«' + o.tx.slice(0, 16) + (o.tx.length > 16 ? '…' : '') + '»' : 'Talubløðra') : t[0] === 'k' ? 'Kladda' : 'Lutur'; };
+  const figName = o => { if (!o) return '?'; const t = o.t; return t[0] === 'f' ? FOLKID[t.split(':')[1]].n : t[0] === 's' ? 'Stavurin ' + t.slice(2) : t[0] === 't' ? (o.tx ? '«' + o.tx.slice(0, 14) + (o.tx.length > 14 ? '…' : '') + '»' : 'Talubløðra') : t[0] === 'k' ? 'Kladda' : 'Lutur'; };
   const thumbOf = (o, S) => { const c = document.createElement('canvas'); if (o.t[0] === 'k') { c.width = c.height = S; const im = new Image(); im.onload = () => { const x = c.getContext('2d'), k = Math.min(S / im.width, S / im.height); x.drawImage(im, (S - im.width * k) / 2, (S - im.height * k) / 2, im.width * k, im.height * k); }; im.src = o.im; } else M.thumb(c, o.t, 0, S, S); return c; };
-  const ICS = { klikk: '<path d="M9 3v8M5 7h8M12 12l7 3-3 1 3 4-2 1-3-4-2 3z"/>', saman: '<path d="M5 6h14M5 12h14M5 18h14"/>', aftan: '<path d="M4 12h12M12 6l6 6-6 6"/>' };
-  const STN = { klikk: 'Tá ið trýst verður', saman: 'Saman við tí undan', aftan: 'Aftaná tí undan' };
   const CI = { inn: '<path d="M4 12h11M10 7l5 5-5 5M19 4v16"/>', vis: '<path d="M12 3l2.6 6 6.4.6-4.8 4.3 1.4 6.3L12 17l-5.6 3.2 1.4-6.3L3 9.6l6.4-.6z"/>', ut: '<path d="M5 4v16M9 12h11M15 7l5 5-5 5"/>', leid: '<path d="M4 18c4 0 4-12 8-12s4 12 8 12"/>' };
+  const SPK = '<path d="M4 9h4l5-4v14l-5-4H4zM16.5 8.5a5 5 0 0 1 0 7"/>', HAND = '<path d="M9 3v8M5 7h8M12 12l7 3-3 1 3 4-2 1-3-4-2 3z"/>', PLAYI = '<path d="M7 4l13 8-13 8z"/>', X = '<path d="M6 6l12 12M18 6L6 18"/>';
 
-  function draw() { renderPane(); renderTL(); }
-  function renderPane() {
-    pane.textContent = ''; const p = pg(), A = ani(p), h = el('div', 'rh', pane); el('b', '', h, 'Rørslur á arkinum'); const cb = btn(h, 'Liðugt', '', off); cb.className = 'tb';
-    const r1 = el('div', 'rb', pane), sl = M.sel();
-    const pb = btn(r1, Ic('<path d="M7 4l13 8-13 8z"/>', 18) + 'Spæl alt', '', () => playAll()); pb.className = 'tb hi'; pb.disabled = !A.length;
-    const ab = btn(r1, '+ Legg rørslu afturat', '', () => { if (!M.sel()) return; gallery(null); }); ab.className = 'tb'; ab.disabled = !sl; if (!sl) el('p', 'rhint', pane, 'Trýst á ein figur á arkinum. So kanst tú geva honum eina rørslu.'); else el('p', 'rhint', pane, 'Valdur: <b>' + esc(figName(sl)) + '</b>');
-    const list = el('ol', 'rl', pane); const P = plan(p, null, true); let n = 0;
-    A.forEach((e, i) => {
-      const o = byId(e.o); if (!o) return; if (e.st === 'klikk' || i === 0) n++; const li = el('li', 'rr' + (e.id === sel ? ' on' : ''), list); li.dataset.i = i;
-      el('span', 'rn', li, e.st === 'klikk' || i === 0 ? String(n) : ''); const ch = el('span', 'rc', li, Ic(CI[cat(e.k)], 16)); ch.style.background = col(e.k);
-      li.appendChild(thumbOf(o, 72)); const tx = el('span', 'rt', li, `<b>${esc(figName(o))}</b><small>${esc(nm(e.k))}</small>`); el('span', 'rs', li, Ic(ICS[e.st], 16)).title = STN[e.st];
-      li.onclick = () => { sel = sel === e.id ? null : e.id; M.select(o); fxs.hover(i); draw(); }; li.title = nm(e.k) + ' · ' + STN[e.st];
-      drag(li, i);
-      if (e.id === sel) details(list, e, o, i, P.list[i]);
-    });
-    if (!A.length) el('p', 'rempty', pane, 'Eingin rørsla enn. Vel ein figur og trýst á <b>+ Legg rørslu afturat</b>.');
+  /* tíðarlinjan setir allar rørslur til fasta tíð (st 'tid'), so tær kunnu dragast frítt */
+  function fixTimes(p) { const P = plan(p, null, true); P.list.forEach(q => { if (q.e.st !== 'klikk' && q.e.st !== 'tid') { q.e.st = 'tid'; q.e.w = Math.max(0, Math.round((q.s - q.sec) * 10) / 10); } }); }
+  function addEntry(o, k, extra) {
+    const p = pg(), A = ani(p); fixTimes(p); const P = plan(p, null, true), last = P.list.length ? P.list[P.list.length - 1].sec : 0;
+    let start = 0; P.list.forEach(q => { if (q.e.o === (o ? o.i : '_ark') && q.sec === last) start = Math.max(start, q.end - last); });
+    const e = Object.assign({ id: nid(), o: o ? o.i : '_ark', k, st: 'tid', w: Math.round(start * 10) / 10, d: INFO[k] ? INFO[k].d || 2 : 2 }, extra || {}); A.push(e); return e;
   }
-  function details(list, e, o, i, q) {
-    const d = el('li', 'rd', list), A = ani(pg());
-    const r0 = el('div', 'rdr', d); const eb = btn(r0, `<span class="rc" style="background:${col(e.k)}">${Ic(CI[cat(e.k)], 16)}</span>${esc(nm(e.k))}`, 'Skift rørslu', () => gallery(e)); eb.className = 'tb wide';
-    el('div', 'rlab', d, 'Byrjar');
-    const seg = el('div', 'rseg', d); ['aftan', 'saman', 'klikk'].forEach(s => { const b = btn(seg, Ic(ICS[s], 16) + STN[s], '', () => { M.mark(); e.st = s; M.save(); fxs.folder(); draw(); }); b.setAttribute('aria-pressed', e.st === s); });
-    const sld = (lab, v, lo, hi, set) => { const l = el('label', 'rg', d, `${lab} <input type="range" min="${lo * 10}" max="${hi * 10}"><span></span>`), inp = l.querySelector('input'), o2 = l.querySelector('span'); inp.value = v * 10; o2.textContent = num(v) + ' s'; let mk = 0; inp.oninput = () => { if (!mk) { M.mark(); mk = 1; } const x = inp.value / 10; set(x); o2.textContent = num(x) + ' s'; renderTL(); fxs.slide(x / hi); }; inp.onchange = () => { M.save(); mk = 0; }; };
-    if (e.k !== 'leid') sld('Tíð', e.d || L0(e), .3, 8, x => e.d = x); else { const r = el('div', 'rdr', d); btn(r, 'Drag leiðina umaftur', '', () => { off(1); M.recPath(o, { ent: e }); }).className = 'tb'; }
-    sld('Bíða', e.w || 0, 0, 10, x => e.w = x);
-    const sr = el('div', 'rdr', d), sb = btn(sr, Ic('<path d="M4 9h4l5-4v14l-5-4H4zM16.5 8.5a5 5 0 0 1 0 7"/>', 16) + (e.snd ? esc(SOGA_NAME(e.snd)) : 'Ljóð við rørsluna'), '', () => { const w = d.querySelector('.sp2'); if (w) { w.remove(); return; } const bx = el('div', 'sp2', d); SOGA.sndPanel(bx, e.snd, s => { M.mark(); if (s) e.snd = s; else delete e.snd; M.save(); }); }); sb.className = 'tb wide';
-    const r2 = el('div', 'rdr', d); const B = (ic, t, f, dis) => { const b = btn(r2, Ic(ic, 18), t, f); b.className = 'ib'; b.disabled = !!dis; };
-    B('<path d="M7 4l13 8-13 8z"/>', 'Vís hesa rørsluna', () => preview(e)); B('<path d="M12 19V5M6 11l6-6 6 6"/>', 'Flyt upp', () => move(i, -1), i === 0); B('<path d="M12 5v14M6 13l6 6 6-6"/>', 'Flyt niður', () => move(i, 1), i === A.length - 1);
-    B('<path d="M8 8h12v12H8zM4 16V4h12"/>', 'Ger eina eins', () => { M.mark(); A.splice(i + 1, 0, Object.assign(JSON.parse(JSON.stringify(e)), { id: nid(), st: 'aftan', w: 0 })); M.save(); draw(); });
-    B('<path d="M5 7h14l-1.5 14h-11zM3 7h18M9 7V4h6v3"/>', 'Tak rørsluna burtur', () => { M.mark(); A.splice(i, 1); sel = null; fxs.away(); M.save(); draw(); });
+
+  function draw() { renderTL(); }
+  function renderTL() {
+    closePop(true); tl.textContent = ''; if (!on) return; const p = pg(), A = ani(p), P = plan(p, null, true), T = Math.max(6, Math.ceil(P.end + 2)), figs = p.list.filter(o => !o.b), sl = M.sel();
+    PX = Math.max(46, Math.min(110, (tl.clientWidth - 190) / T));
+    const hd = el('div', 'th', tl); const pb = btn(hd, Ic(PLAYI, 18) + 'Spæl', 'Spæl allar rørslurnar á arkinum', playAll); pb.className = 'tb hi'; pb.disabled = !A.length;
+    el('span', 'thint', hd, figs.length ? (sl ? 'Trýst á <b>+</b> á raðnum hjá ' + esc(figName(sl)) + ' fyri at geva honum eina rørslu ella eitt ljóð.' : 'Trýst á <b>+</b> á einum raði. Drag eina rørslu til síðuna fyri at flyta hana í tíð.') : 'Set fyrst ein figur á arkið.');
+    btn(hd, 'Liðugt', '', off).className = 'tb';
+    const sc = el('div', 'tsc', tl), inner = el('div', 'tin', sc); inner.style.width = 170 + T * PX + 60 + 'px';
+    const ru = el('div', 'trul', inner); el('span', 'tlab', ru, ''); const rr = el('div', 'tr', ru); for (let s = 0; s <= T; s++) el('i', s % 2 ? 'mn' : '', rr, s % 2 ? '' : s + ' s').style.left = s * PX + 'px';
+    P.list.forEach((q, i) => { if (q.klikk && i) { const m = el('i', 'tclick', rr, Ic(HAND, 13)); m.style.left = q.sec * PX + 'px'; m.title = 'Her bíðar søgan, til trýst verður'; } });
+    /* arkið */
+    row(inner, null, P, T);
+    figs.forEach(o => row(inner, o, P, T));
+    PV = el('i', 'tph', inner); PV.hidden = true;
+    const s = sel && P.list.find(q => q.e.id === sel); if (s) requestAnimationFrame(() => { const b = tl.querySelector('[data-e="' + sel + '"]'); if (b) b.scrollIntoView({ block: 'nearest', inline: 'nearest' }); });
   }
-  const SOGA_NAME = s => !s ? '' : s.t === 'lib' ? (Object.values(SOGA.LIB).flat().find(x => x[0] === s.id) || ['', s.id.startsWith('vox:') ? FOLKID[s.id.slice(4)].n : 'Ljóð'])[1] : s.n;
-  function move(i, d) { const A = ani(pg()); M.mark();[A[i], A[i + d]] = [A[i + d], A[i]]; fxs.flip(); M.save(); draw(); }
-  /* drag ein rað upp ella niður */
-  function drag(li, i) {
-    let y0 = null, moved = false; li.addEventListener('pointerdown', ev => { if (ev.target.closest('button')) return; y0 = ev.clientY; moved = false; try { li.setPointerCapture(ev.pointerId); } catch (_) { } });
-    li.addEventListener('pointermove', ev => { if (y0 == null) return; const dy = ev.clientY - y0; if (Math.abs(dy) > 6) moved = true; if (moved) { li.style.transform = `translateY(${dy}px)`; li.classList.add('drg'); } });
-    li.addEventListener('pointerup', ev => { if (y0 == null) return; const dy = ev.clientY - y0; y0 = null; li.style.transform = ''; li.classList.remove('drg'); if (!moved) return; ev.stopPropagation(); const rows = [...pane.querySelectorAll('.rr')], hgt = li.getBoundingClientRect().height + 4, k = Math.round(dy / hgt); if (!k) return; const A = ani(pg()), j = Math.max(0, Math.min(A.length - 1, i + k)); M.mark(); const [e] = A.splice(i, 1); A.splice(j, 0, e); fxs.flip(); M.save(); draw(); li.onclick = null; }, true);
+  function row(inner, o, P, T) {
+    const id = o ? o.i : '_ark', r = el('div', 'trow' + (o && M.sel() === o ? ' on' : '') + (o ? '' : ' ark'), inner), lab = el('button', 'tlab', r);
+    if (o) { lab.appendChild(thumbOf(o, 72)); el('span', '', lab, esc(figName(o))); lab.onclick = () => { M.select(o); fxs.hover(2); }; } else { el('span', 'tic', lab, Ic(SPK, 18)); el('span', '', lab, 'Arkið'); lab.title = 'Ljóð til alt arkið'; lab.onclick = () => openAdd(null, lab); }
+    const tr = el('div', 'tr', r); tr.style.width = T * PX + 'px';
+    if (!o) { const ps = pg().snd; if (ps) { const b = el('button', 'tb2 snd', tr, Ic(SPK, 14) + '<span>' + esc(SOGA_NAME(ps)) + '</span>'); b.style.left = '0px'; b.style.width = Math.max(60, (ps.d || 3) * PX) + 'px'; b.onclick = () => pagePop(b); } }
+    let endT = 0; P.list.filter(q => q.e.o === id).forEach(q => { block(tr, q, o); endT = Math.max(endT, q.end); });
+    const add = btn(tr, '+', o ? 'Legg rørslu ella ljóð afturat hjá ' + figName(o) : 'Legg ljóð afturat til arkið', () => { if (o) { quiet = 1; M.select(o); quiet = 0; } openAdd(o, add); }); add.className = 'tadd'; add.style.left = (isFinite(endT) ? endT : 0) * PX + 6 + 'px';
   }
+  function block(tr, q, o) {
+    const e = q.e, isS = e.k === 'ljod', b = el('div', 'tb2' + (isS ? ' snd' : '') + (e.id === sel ? ' on' : ''), tr); b.dataset.e = e.id; b.style.left = q.s * PX + 'px'; b.style.width = Math.max(30, q.d * PX) + 'px';
+    if (!isS) { b.style.background = col(e.k); el('span', 'bt', b, Ic(CI[cat(e.k)], 13) + esc(nm(e.k))); const sn = sndName(e); if (sn) el('span', 'bs' + (e.snd ? ' own' : ''), b, Ic(SPK, 11) + esc(sn)); }
+    else el('span', 'bt', b, Ic(SPK, 13) + esc(sndName(e) || 'Ljóð'));
+    if (e.st === 'klikk') el('i', 'bk', b, Ic(HAND, 12)).title = 'Byrjar, tá ið trýst verður';
+    const hd = el('i', 'bh', b); let m = null;
+    b.addEventListener('pointerdown', ev => { ev.stopPropagation(); m = { x: ev.clientX, w: e.w || 0, d: q.d, kind: ev.target === hd ? 'd' : 'w', mv: 0 }; try { b.setPointerCapture(ev.pointerId); } catch (_) { } });
+    b.addEventListener('pointermove', ev => { if (!m) return; const dx = (ev.clientX - m.x) / PX; if (!m.mv && Math.abs(ev.clientX - m.x) > 5) { m.mv = 1; M.mark(); if (e.st !== 'klikk') { fixTimes(pg()); m.w = e.w || 0; } b.classList.add('drg'); } if (!m.mv) return; if (m.kind === 'w') { e.w = Math.max(0, Math.round((m.w + dx) * 10) / 10); b.style.left = (q.s + e.w - m.w) * PX + 'px'; } else if (e.k !== 'leid') { e.d = Math.max(.3, Math.round((m.d + dx) * 10) / 10); b.style.width = Math.max(30, e.d * PX) + 'px'; } });
+    b.addEventListener('pointerup', () => { if (!m) return; const mv = m.mv; m = null; if (mv) { M.save(); fxs.slide(.5); renderTL(); } else { sel = e.id; quiet = 1; if (o) M.select(o); quiet = 0; blockPop(e, o); } });
+  }
+
+  /* ---------- lítli kassin við eina rørslu ---------- */
+  function closePop(keepSel) { if (pop) { pop.remove(); pop = null; } if (!keepSel) { } }
+  function popAt(anchor, title) { closePop(true); pop = el('div', '', document.body); pop.id = 'tpop'; const h = el('div', 'ph', pop, '<b>' + title + '</b>'); btn(h, Ic(X, 18), 'Lat aftur', () => { closePop(); sel = null; renderTL(); }).className = 'ib'; const body = el('div', 'pb', pop); requestAnimationFrame(() => { if (!pop) return; const a = anchor.getBoundingClientRect(), w = pop.offsetWidth, hh = pop.offsetHeight; pop.style.left = Math.max(8, Math.min(innerWidth - w - 8, a.left)) + 'px'; pop.style.top = Math.max(8, a.top - hh - 8) + 'px'; }); return body; }
+  function blockPop(e, o) {
+    renderTL(); const anchor = tl.querySelector('[data-e="' + e.id + '"]') || tl; const isS = e.k === 'ljod', body = popAt(anchor, isS ? 'Ljóð' : esc(nm(e.k)) + (o ? ' · ' + esc(figName(o)) : ''));
+    if (!isS) { const r0 = el('div', 'rdr', body); const eb = btn(r0, `<span class="rc" style="background:${col(e.k)}">${Ic(CI[cat(e.k)], 14)}</span>Skift rørslu`, '', () => { closePop(); gallery(e); }); eb.className = 'tb'; if (e.k === 'leid') btn(r0, 'Drag leiðina umaftur', '', () => { closePop(); off(1); M.recPath(o, { ent: e }); }).className = 'tb'; }
+    if (e.k !== 'leid') { const l = el('label', 'rg', body, `Tíð <input type="range" min="3" max="${isS ? 300 : 80}"><span></span>`), inp = l.querySelector('input'), o2 = l.querySelector('span'), d0 = e.d || L0(e); inp.value = d0 * 10; o2.textContent = num(d0) + ' s'; let mk = 0; inp.oninput = () => { if (!mk) { M.mark(); mk = 1; } e.d = inp.value / 10; o2.textContent = num(e.d) + ' s'; }; inp.onchange = () => { mk = 0; M.save(); const k = e.id; renderTL(); sel = k; blockPop(e, o); }; }
+    /* ljóðið */
+    el('div', 'rlab', body, Ic(SPK, 14) + ' Ljóð');
+    const sr = el('div', 'rdr', body), cur = sndName(e);
+    el('span', 'snow', sr, cur ? esc(cur) + (e.snd ? '' : ' <small>(kemur við rørsluni)</small>') : 'Einki ljóð');
+    if (cur) btn(sr, Ic(PLAYI, 16), 'Lurta', () => SOGA.playSnd(sndOf(e, o))).className = 'ib';
+    const r3 = el('div', 'rdr', body), box = el('div', 'sp2', body); box.hidden = true;
+    btn(r3, 'Vel annað ljóð', '', () => { box.hidden = !box.hidden; if (!box.hidden && !box.firstChild) SOGA.sndPanel(box, e.snd, s => { M.mark(); if (s) { e.snd = s; delete e.ljod; if ((e.k === 'tala' || isS) && s.d) e.d = Math.round(s.d * 10) / 10; } else { delete e.snd; if (!isS) e.ljod = false; } M.save(); const k = e.id; renderTL(); sel = k; blockPop(e, o); }); }).className = 'tb';
+    if (!isS && e.snd) btn(r3, 'Brúka ljóðið, sum kemur við', '', () => { M.mark(); delete e.snd; delete e.ljod; M.save(); renderTL(); sel = e.id; blockPop(e, o); }).className = 'tb';
+    else if (!isS && AUTO[e.k] && e.ljod !== false) btn(r3, 'Einki ljóð', '', () => { M.mark(); e.ljod = false; M.save(); renderTL(); sel = e.id; blockPop(e, o); }).className = 'tb';
+    else if (!isS && AUTO[e.k]) btn(r3, 'Ljóð aftur', '', () => { M.mark(); delete e.ljod; M.save(); renderTL(); sel = e.id; blockPop(e, o); }).className = 'tb';
+    if (e.k === 'tala' && !e.snd) el('p', 'rtip', body, 'Vilt tú sjálv/ur siga tað, figururin sigur? Trýst á <b>Vel annað ljóð</b> og so <b>Tak upp</b>.');
+    /* tá ið */
+    const ck = el('label', 'rck', body, '<input type="checkbox"> Bíða eftir trýsti í framsýningini'), ci = ck.querySelector('input'); ci.checked = e.st === 'klikk'; ci.onchange = () => { M.mark(); fixTimes(pg()); if (ci.checked) { e.st = 'klikk'; e.w = 0; const A = ani(pg()); A.splice(A.indexOf(e), 1); A.push(e); } else { e.st = 'tid'; } M.save(); renderTL(); sel = e.id; blockPop(e, o); };
+    const r2 = el('div', 'rdr', body); const B = (ic, t, f) => { const b = btn(r2, Ic(ic, 16) + t, '', f); b.className = 'tb'; };
+    B(PLAYI, 'Vís', () => preview(e)); B('<path d="M8 8h12v12H8zM4 16V4h12"/>', 'Ein afturat', () => { M.mark(); fixTimes(pg()); const c = JSON.parse(JSON.stringify(e)); c.id = nid(); c.st = 'tid'; const P = plan(pg(), null, true), q = P.list.find(x => x.e.id === e.id); c.w = Math.round(((q ? q.end - q.sec : 0)) * 10) / 10; ani(pg()).push(c); M.save(); sel = c.id; renderTL(); blockPop(c, o); });
+    B('<path d="M5 7h14l-1.5 14h-11zM3 7h18M9 7V4h6v3"/>', 'Tak burtur', () => { M.mark(); const A = ani(pg()); A.splice(A.indexOf(e), 1); sel = null; fxs.away(); M.save(); closePop(); renderTL(); });
+  }
+  function pagePop(anchor) { const body = popAt(anchor, 'Ljóð til arkið'); el('p', 'rtip', body, 'Hetta ljóðið byrjar, tá ið arkið kemur fram.'); const box = el('div', 'sp2', body); SOGA.sndPanel(box, pg().snd, s => { M.mark(); if (s) pg().snd = s; else delete pg().snd; M.save(); renderTL(); }); }
+  /* + á einum raði: rørsla ella ljóð */
+  function openAdd(o, anchor) {
+    const body = popAt(anchor, o ? 'Legg afturat hjá ' + esc(figName(o)) : 'Legg ljóð afturat til arkið');
+    if (o) { const b1 = btn(body, `<span class="rc" style="background:#2fae4f">${Ic(CI.inn, 14)}</span>Rørsla <small>(við ljóði)</small>`, '', () => { closePop(); gallery(null, o); }); b1.className = 'tb wide'; }
+    const b2 = btn(body, `<span class="rc" style="background:#7a8cff">${Ic(SPK, 14)}</span>${o ? 'Bert eitt ljóð (t.d. tað, figururin sigur)' : 'Eitt ljóð'}`, '', () => { const box = el('div', 'sp2', body); b2.remove(); SOGA.sndPanel(box, null, s => { if (!s) return; M.mark(); const e = addEntry(o, 'ljod', { snd: s, d: Math.round((s.d || 2) * 10) / 10 }); M.save(); sel = e.id; renderTL(); blockPop(e, o); }); }); b2.className = 'tb wide';
+  }
+  const SOGA_NAME = s => !s ? '' : s.t === 'lib' ? (Object.values(SOGA.LIB).flat().find(x => x[0] === s.id) || ['', s.id.startsWith('vox:') ? FOLKID[s.id.slice(4)].n : 'Ljóð'])[1] : s.n || 'Upptøka';
 
   /* ---------- rørslusavnið: hvør rørsla verður víst við tí valda figurinum ---------- */
-  function gallery(e) {
-    const o = e ? byId(e.o) : M.sel(); if (!o) return; if (gal) gal.remove(); fxs.folder();
-    gal = el('div', '', $('wrap')); gal.id = 'rgal'; const h = el('div', 'rh', gal); el('b', '', h, e ? 'Skift rørslu' : 'Vel eina rørslu til ' + esc(figName(o))); btn(h, Ic('<path d="M6 6l12 12M18 6L6 18"/>', 18), 'Lat aftur', closeGal).className = 'ib';
+  function gallery(e, oo) {
+    const o = e ? byId(e.o) : (oo || M.sel()); if (!o) return; if (gal) gal.remove(); fxs.folder();
+    gal = el('div', '', $('wrap')); gal.id = 'rgal'; const h = el('div', 'rh', gal); el('b', '', h, e ? 'Skift rørslu' : 'Vel eina rørslu til ' + esc(figName(o))); btn(h, Ic(X, 18), 'Lat aftur', closeGal).className = 'ib';
     const img = thumbOf(o, 160), tiles = [], body = el('div', 'gb', gal);
     for (const c in CAT) { const s = el('section', '', body); el('h4', '', s, `<span class="rc" style="background:${CAT[c].c}">${Ic(CI[c], 14)}</span>${CAT[c].n}`); const g = el('div', 'gg', s);
-      CAT[c].l.forEach(([k, n]) => { const b = btn(g, '<canvas width="168" height="120"></canvas><span>' + n + '</span>', '', () => pick(k)); if (e && e.k === k) b.className = 'on'; tiles.push([b.firstChild, k]); b.onpointerenter = () => fxs.hover(tiles.length); }); }
-    function pick(k) { const p = pg(), A = ani(p); M.mark(); let x = e; if (!x) { x = { id: nid(), o: o.i, k, st: 'aftan', w: 0 }; const j = A.map(a => a.o).lastIndexOf(o.i); A.splice(j >= 0 ? j + 1 : A.length, 0, x); } else { x.k = k; delete x.p; delete x.gamal; } x.d = INFO[k].d || 2; sel = x.id; M.save(); closeGal(); draw(); fxs.magic(1); if (k === 'leid') { off(1); M.recPath(o, { ent: x }); } else setTimeout(() => preview(x), 250); }
-    const t0 = performance.now(), loop = () => { if (!gal || !gal.isConnected) return; requestAnimationFrame(loop); const u = (performance.now() - t0) / 1000; tiles.forEach(([c, k]) => { const x = c.getContext('2d'); x.setTransform(1, 0, 0, 1, 0, 0); x.clearRect(0, 0, 168, 120); x.strokeStyle = '#e6e3e3'; x.lineWidth = 2; x.beginPath(); x.moveTo(0, 108); x.lineTo(168, 108); x.stroke(); if (k === 'leid') { x.setLineDash([6, 5]); x.strokeStyle = '#3b4cff'; x.beginPath(); x.moveTo(20, 96); x.bezierCurveTo(60, 20, 110, 120, 150, 40); x.stroke(); x.setLineDash([]); const t = (u % 2.4) / 2.4, X = 20 + 130 * t, Y = 96 - 56 * Math.sin(t * 3.14) * (1 - t * .3); x.drawImage(img, X - 28, Y - 50, 56, 56); return; }
-      const L = INFO[k].d || 2, q = u % (L + (cat(k) === 'vis' ? 0 : 1)), r = (AN[k] && AN[k](Math.min(q, L) + (SKIP[k] || 0) * 0, { x: 84 * 7.6, y: 600, fl: false }, {})) || {}, sc = .22;
+      CAT[c].l.forEach(([k, n]) => { const b = btn(g, '<canvas width="168" height="120"></canvas><span>' + n + '</span>' + (AUTO[k] ? '<small>' + Ic(SPK, 11) + AUTO[k] + '</small>' : ''), '', () => pick(k)); if (e && e.k === k) b.className = 'on'; tiles.push([b.firstChild, k]); b.onpointerenter = () => fxs.hover(tiles.length); }); }
+    function pick(k) { M.mark(); let x = e; if (!x) x = addEntry(o, k); else { x.k = k; delete x.p; delete x.gamal; x.d = INFO[k].d || 2; } sel = x.id; M.save(); closeGal(); renderTL(); fxs.magic(1); if (k === 'leid') { off(1); M.recPath(o, { ent: x }); } else setTimeout(() => preview(x), 250); }
+    const t0 = performance.now(), loop = () => { if (!gal || !gal.isConnected) return; requestAnimationFrame(loop); const u = (performance.now() - t0) / 1000; tiles.forEach(([c, k]) => { const x = c.getContext('2d'); x.setTransform(1, 0, 0, 1, 0, 0); x.clearRect(0, 0, 168, 120); x.strokeStyle = '#e6e3e3'; x.lineWidth = 2; x.beginPath(); x.moveTo(0, 108); x.lineTo(168, 108); x.stroke(); if (k === 'leid') { x.setLineDash([6, 5]); x.strokeStyle = '#3b4cff'; x.beginPath(); x.moveTo(20, 96); x.bezierCurveTo(60, 20, 110, 120, 150, 40); x.stroke(); x.setLineDash([]); const t = (u % 2.4) / 2.4, X2 = 20 + 130 * t, Y = 96 - 56 * Math.sin(t * 3.14) * (1 - t * .3); x.drawImage(img, X2 - 28, Y - 50, 56, 56); return; }
+      const L = INFO[k].d || 2, q = u % (L + (cat(k) === 'vis' ? 0 : 1)), r = (AN[k] && AN[k](Math.min(q, L), { x: 84 * 7.6, y: 600, fl: false }, {})) || {}, sc = .22;
       x.save(); x.translate(84 + (r.x || 0) * sc * .5, 108 + (r.y || 0) * sc * .5); x.globalAlpha = Math.max(0, Math.min(1, r.a == null ? 1 : r.a)); x.translate(0, -40); x.rotate((r.r || 0) * Math.PI / 180); x.scale(r.sx == null ? 1 : r.sx, r.sy == null ? 1 : r.sy); x.drawImage(img, -40, -40, 80, 80); x.restore(); }); }; loop();
   }
   function closeGal() { if (gal) { gal.remove(); gal = null; } }
 
-  /* ---------- tíðarlinjan niðri ---------- */
-  let PX = 60;
-  function renderTL() {
-    tl.textContent = ''; const p = pg(), P = plan(p, null, true), A = P.list, T = Math.max(4, Math.ceil(P.end + 1)); PX = Math.max(34, Math.min(90, (tl.clientWidth - 190) / T)); if (!on) return;
-    const head = el('div', 'tlh', tl); el('span', 'tll', head, 'Tíðarlinja'); const ru = el('div', 'tlr', head); ru.style.width = T * PX + 'px'; for (let s = 0; s <= T; s++) el('i', '', ru, s % 2 ? '' : s + ' s').style.left = s * PX + 'px';
-    const rows = el('div', 'tlb', tl); if (!A.length) el('p', '', rows, 'Rørslurnar standa her, tá ið tú hevur lagt tær afturat.');
-    A.forEach((q, i) => { const o = byId(q.e.o); if (!o) return; const r = el('div', 'tlrow' + (q.e.id === sel ? ' on' : ''), rows); const lab = el('button', 'tll', r, esc(figName(o)) + ' · ' + esc(nm(q.e.k))); lab.onclick = () => { sel = q.e.id; M.select(o); draw(); };
-      const tr = el('div', 'tlt', r); tr.style.width = T * PX + 'px'; if (q.klikk && i) el('i', 'tlk', tr, Ic(ICS.klikk, 14)).style.left = (q.s - (q.e.w || 0)) * PX - 9 + 'px';
-      const b = el('div', 'tlbar', tr); b.style.left = q.s * PX + 'px'; b.style.width = Math.max(8, q.d * PX) + 'px'; b.style.background = col(q.e.k); el('span', '', b, esc(nm(q.e.k))); const hd = el('i', 'tlhd', b);
-      let m = null; const down = (ev, kind) => { ev.stopPropagation(); m = { x: ev.clientX, w: q.e.w || 0, d: q.d, kind, mk: 0 }; try { b.setPointerCapture(ev.pointerId); } catch (_) { } sel = q.e.id; };
-      b.addEventListener('pointerdown', ev => down(ev, ev.target === hd ? 'd' : 'w'));
-      b.addEventListener('pointermove', ev => { if (!m) return; const dx = (ev.clientX - m.x) / PX; if (Math.abs(dx) > .02 && !m.mk) { M.mark(); m.mk = 1; } if (m.kind === 'w') { q.e.w = Math.max(0, Math.round((m.w + dx) * 10) / 10); b.style.left = (q.s + q.e.w - (m.w)) * PX + 'px'; } else if (q.e.k !== 'leid') { q.e.d = Math.max(.3, Math.round((m.d + dx) * 10) / 10); b.style.width = q.e.d * PX + 'px'; } });
-      b.addEventListener('pointerup', () => { if (!m) return; const ch = m.mk; m = null; if (ch) { M.save(); fxs.slide(.5); } draw(); });
-    });
-    PV = el('i', 'tlph', rows); PV.hidden = true;
-  }
-
   /* ---------- spæla ---------- */
   let pvT = 0;
-  function playAll() { closeGal(); M.select(null); const t0 = performance.now() + 120; M.play(t0, { auto: true, id: 'alt', stamp: Math.random() }); run(t0, plan(pg(), null, true)); }
-  function preview(e) { const t0 = performance.now() + 60; M.play(t0, { only: e.id, stamp: Math.random() }); if (e.snd) setTimeout(() => SOGA.playSnd(e.snd), 60); }
-  function run(t0, P) { cancelAnimationFrame(pvT); const done = new Set(), tick = () => { const u = (performance.now() - t0) / 1000; P.list.forEach(q => { if (q.e.snd && u >= q.s && !done.has(q.e.id)) { done.add(q.e.id); SOGA.playSnd(q.e.snd); } }); if (PV && PV.isConnected) { PV.hidden = false; PV.style.left = 190 + Math.max(0, u) * PX + 'px'; } if (u < P.end + .6) pvT = requestAnimationFrame(tick); else if (PV) PV.hidden = true; }; tick(); }
+  function playAll() { closeGal(); closePop(); M.select(null); const t0 = performance.now() + 120; M.play(t0, { auto: true, id: 'alt', stamp: Math.random() }); run(t0, plan(pg(), null, true)); if (pg().snd) setTimeout(() => SOGA.playSnd(pg().snd), 120); }
+  function preview(e) { const t0 = performance.now() + 60; M.play(t0, { only: e.id, stamp: Math.random() }); const P = plan(pg(), null, true), q = P.list.find(x => x.e.id === e.id), s = sndOf(e, byId(e.o), q && q.d); if (s) setTimeout(() => SOGA.playSnd(s), 60); }
+  function run(t0, P) { cancelAnimationFrame(pvT); const done = new Set(), tick = () => { const u = (performance.now() - t0) / 1000; P.list.forEach(q => { const s = sndOf(q.e, byId(q.e.o), q.d); if (s && u >= q.s && !done.has(q.e.id)) { done.add(q.e.id); SOGA.playSnd(s); } }); if (PV && PV.isConnected) { PV.hidden = false; PV.style.left = 170 + Math.max(0, u) * PX + 'px'; } if (u < P.end + .6) pvT = requestAnimationFrame(tick); else if (PV) PV.hidden = true; }; tick(); }
 
-  /* ---------- tøl á arkinum við hvønn lut, sum hevur rørslu ---------- */
-  M.overlay = (c, figTop) => { if (!on) return; const A = ani(pg()); let n = 0; const tag = {}; A.forEach((e, i) => { if (e.st === 'klikk' || i === 0) n++; (tag[e.o] = tag[e.o] || []).push([n, col(e.k)]); });
-    for (const id in tag) { const o = byId(id), t = o && figTop(o); if (!t) continue; tag[id].forEach(([k, f], j) => { const x = t[0] + j * 30, y = t[1]; c.fillStyle = f; c.fillRect(x, y, 26, 26); c.strokeStyle = '#26262e'; c.lineWidth = 2; c.strokeRect(x, y, 26, 26); c.fillStyle = '#fff'; c.font = '800 16px Inter,system-ui,sans-serif'; c.textAlign = 'center'; c.fillText(String(k), x + 13, y + 19); }); } };
+  /* ---------- merki á arkinum við hvønn lut, sum hevur rørslu ---------- */
+  M.overlay = (c, figTop) => { if (!on) return; const A = ani(pg()), tag = {}; A.forEach(e => { if (e.o !== '_ark' && e.k !== 'ljod') (tag[e.o] = tag[e.o] || []).push(col(e.k)); });
+    for (const id in tag) { const o = byId(id), t = o && figTop(o); if (!t) continue; tag[id].slice(0, 8).forEach((f, j) => { const x = t[0] + j * 18, y = t[1] + 6; c.fillStyle = f; c.fillRect(x, y, 15, 15); c.strokeStyle = '#26262e'; c.lineWidth = 2; c.strokeRect(x, y, 15, 15); }); } };
 
-  function onM() { on = true; document.body.classList.add('anim', 'anim2'); M.tool('hond', 1); fxs.folder(); pane.hidden = false; const s = M.sel(); if (s) { const e = ani(pg()).find(x => x.o === s.i); sel = e ? e.id : null; } draw(); M.refresh && M.redraw(); }
-  function off(keep) { on = false; closeGal(); document.body.classList.remove('anim', 'anim2'); pane.hidden = true; M.play(0); if (!keep) fxs.folder(); M.redraw(); }
+  function onM() { on = true; document.body.classList.add('anim', 'anim2'); M.tool('hond', 1); fxs.folder(); const s = M.sel(); if (s) { const e = ani(pg()).find(x => x.o === s.i); sel = e ? e.id : null; } renderTL(); M.redraw(); }
+  function off(keep) { on = false; closeGal(); closePop(); document.body.classList.remove('anim', 'anim2'); M.play(0); if (!keep) fxs.folder(); M.redraw(); }
   $('bR').onclick = () => on ? off() : onM();
-  const prevSel = M.onselect; M.onselect = d => { if (prevSel && !on) prevSel(d); if (on) { if (d) { const A = ani(pg()), e = A.find(x => x.o === d.i && x.id === sel) || A.find(x => x.o === d.i); sel = e ? e.id : null; } setTimeout(draw); } };
-  M.pathDone = (d, pth, s) => { if (!s || !s.ent) return false; s.ent.k = 'leid'; s.ent.p = pth; s.ent.d = pth[pth.length - 1][0] + .3; delete s.ent.gamal; M.save(); onM(); sel = s.ent.id; draw(); setTimeout(() => preview(s.ent), 200); return true; };
+  let quiet = 0; const prevSel = M.onselect; M.onselect = d => { if (prevSel && !on) prevSel(d); if (on && !pop && !quiet) setTimeout(renderTL); };
+  M.pathDone = (d, pth, s) => { if (!s || !s.ent) return false; s.ent.k = 'leid'; s.ent.p = pth; s.ent.d = pth[pth.length - 1][0] + .3; delete s.ent.gamal; M.save(); onM(); sel = s.ent.id; renderTL(); setTimeout(() => preview(s.ent), 200); return true; };
   addEventListener('resize', () => on && renderTL());
-  window.RORSLA = { at, plan, ani, on: () => on, waiting: (p, clicks) => { const P = plan(p, clicks, false); return P.wait; }, total: (p, clicks, auto) => { const P = plan(p, clicks, auto); return P.wait ? Infinity : P.end; } };
+  addEventListener('pointerdown', ev => { if (pop && !pop.contains(ev.target) && !ev.target.closest('.tb2,.tadd,.tlab')) { closePop(); } }, true);
+  window.RORSLA = { at, plan, ani, sndOf, on: () => on, waiting: (p, clicks) => { const P = plan(p, clicks, false); return P.wait; }, total: (p, clicks, auto) => { const P = plan(p, clicks, auto); return P.wait ? Infinity : P.end; } };
 })();
 </script>
 <script>
