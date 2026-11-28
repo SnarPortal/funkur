@@ -282,6 +282,9 @@ body.anim2 #anim{padding:0!important;gap:0!important;background:#fff;border-top:
 @media (max-height:480px){body.anim2{grid-template-rows:40px minmax(0,1fr) 150px!important}#anim .trow{height:50px}.tb2{height:38px;top:5px}#anim .tlab{width:120px}#anim .tlab canvas{width:30px;height:30px}}
 #mikro{position:fixed;left:50%;top:84px;transform:translateX(-50%);z-index:45;background:#fff;border:3px solid var(--ink);padding:12px 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;max-width:min(560px,calc(100vw - 16px));box-shadow:4px 5px 0 rgba(38,38,46,.25)}#mikro.feil{background:#fff3f3}#mikro b{display:block;font-size:16px}#mikro small{display:block;font-size:13px}#mikro .tid{font-weight:800;font-size:18px;min-width:40px;text-align:right}
 #mikro .dot{width:18px;height:18px;border-radius:50%;background:#e5252a;animation:mdot 1s ease-in-out infinite;flex:none}@keyframes mdot{50%{opacity:.25}}
+#dukka{position:fixed;left:50%;top:84px;transform:translateX(-50%);z-index:46;background:#fff;border:3px solid var(--ink);padding:12px 14px;display:flex;align-items:center;gap:12px;max-width:min(600px,calc(100vw - 16px));box-shadow:4px 5px 0 rgba(38,38,46,.25)}#dukka b{display:block;font-size:16px}#dukka small{display:block;font-size:13px}#dukka .dot{width:18px;height:18px;border-radius:50%;background:#e5252a;animation:mdot 1s ease-in-out infinite;flex:none}#dukka .cd{font-size:40px;font-weight:800;min-width:40px;text-align:center}
+body.dukka #wrap{outline:6px solid #e5252a;outline-offset:2px}body.dukka #anim .tsc,body.dukka #anim .th>*:not(.rec){opacity:.35;pointer-events:none}body.dukka #mini,body.dukka #knob{display:none!important}
+.rdot{width:12px;height:12px;border-radius:50%;background:#fff;display:inline-block;border:2px solid currentColor}
 </style>
 </head>
 <body>
@@ -1798,7 +1801,7 @@ const STAVIR = [...'AÁBDÐEFGHIÍJKLMNOÓPRSTUÚVYÝÆØ0123456789!?'];
     fljut: (u, d) => { const k = Math.max(0, Math.min(1, (u - .6) / 1.9)), q = k * k; return { x: q * (d.fl ? -1100 : 1100), y: -q * 820 + Math.sin(k * 3.14) * 40, r: -q * 24, a: k >= 1 ? 0 : 1, e: k > 0 ? 1 : 0, u }; },
     falla: (u, d) => { const H = d.y + 60; let y; if (u < .7) y = -H * (1 - (u / .7) ** 2); else { const v = u - .7; y = v < .5 ? -90 * Math.sin(v / .5 * Math.PI) : v < .8 ? -30 * Math.sin((v - .5) / .3 * Math.PI) : 0; } return { y, sy: u > .7 && u < .78 ? .86 : 1 }; },
     vaksa: u => { if (u <= 0) return { a: 0 }; const k = Math.min(1, u / .8), z = k < 1 ? 1 - Math.cos(k * 8) * Math.exp(-k * 5) : 1; return { sx: z, sy: z }; }, hvorva: u => ({ a: 1 - cl(u, .8, 2), sx: 1 + .25 * cl(u, .8, 2), sy: 1 + .25 * cl(u, .8, 2) }),
-    leid: (u, d, s) => { const p = (s || d.an).p || []; if (p.length < 2) return null; const T = p[p.length - 1][0]; let i = 1; const t = Math.min(u, T); while (i < p.length - 1 && p[i][0] < t) i++; const a = p[i - 1], b = p[i], f = Math.max(0, Math.min(1, (t - a[0]) / Math.max(.001, b[0] - a[0]))); return { x: a[1] + (b[1] - a[1]) * f, y: a[2] + (b[2] - a[2]) * f, e: u < T ? 1 : 0, u }; },
+    leid: (u, d, s) => { const p = (s || d.an).p || []; if (p.length < 2) return null; const T = p[p.length - 1][0]; let i = 1; const t = Math.min(u, T); while (i < p.length - 1 && p[i][0] < t) i++; const a = p[i - 1], b = p[i], f = Math.max(0, Math.min(1, (t - a[0]) / Math.max(.001, b[0] - a[0]))); const dx = b[1] - a[1], r = { x: a[1] + (b[1] - a[1]) * f, y: a[2] + (b[2] - a[2]) * f, e: u < T ? 1 : 0, u }; if (u < T && Math.abs(dx) > 2) r.fx = (dx < 0) !== !!d.fl; return r; },
   };
   /* ein figurur kann hava fleiri rørslur á rað: d.an er tann fyrsta, og .n peikar á ta næstu */
   const START = { inn: 1, fljinn: 1, falla: 1, vaksa: 1 }, ENDS = { inn: 1, ut: 1, renn: 1, fljinn: 1, fljut: 1, falla: 1, vaksa: 1, hvorva: 1, leid: 1 };
@@ -2030,7 +2033,7 @@ const STAVIR = [...'AÁBDÐEFGHIÍJKLMNOÓPRSTUÚVYÝÆØ0123456789!?'];
     if (!drag) return; if (drag.m === 'draw') { if (ev && ev.clientX != null) { const p = pt(ev); drag.tx = p[0]; drag.ty = p[1]; } endStroke(); return; }
     const D = drag; drag = null; if (D.pan) return;
     if (D.m === 'move' && recF === D.F) { recF = null; hint(''); mark(D.snap); const d = D.F; d.x = D.ox; d.y = D.oy; const pth = [[0, 0, 0], ...(D.path || []).filter((_, i, a) => i % 2 === 0 || i === a.length - 1)]; if (MG.pathDone && MG.pathDone(d, pth, recS)) { recS = null; select(d); return; } if (recS && d.an) { recS.k = 'leid'; recS.p = pth; } else d.an = { k: 'leid', w: (d.an && d.an.w) || 0, p: pth }; recS = null; save(); select(d); preview(d); return; }
-    if (D.m === 'move') { mark(D.snap); const l = pg().list, d = D.F; l.splice(l.indexOf(d), 1); if (d.x < -20 || d.x > 1300 || d.y < 0 || d.y > 900) fxs.away(); else { l.push(d); fxs.stick(); select(d); } save(); }
+    if (D.m === 'move') { mark(D.snap); const l = pg().list, d = D.F; l.splice(l.indexOf(d), 1); if (!(window.DUKKA && DUKKA.on()) && (d.x < -20 || d.x > 1300 || d.y < 0 || d.y > 900)) fxs.away(); else { l.push(d); if (window.DUKKA && DUKKA.on()) { } else { fxs.stick(); select(d); } } save(); }
     else if (MAG.hond && (D.F || MAG.hond === 2 || MAG.hond === 3)) hondTap(D.F, D.x, D.y);
     else if (D.F) { { select(D.F); play('f:' + D.F.i); if (D.F.snd && window.SOGA) SOGA.playSnd(D.F.snd); else voiceOf(D.F); } }
     else if (D.h && PLASS[pg().bg].loynd) { for (let i = 0; i < 5; i++) burst(D.x + (Math.random() - .5) * 120, D.y + (Math.random() - .5) * 120, COL[Math.floor(Math.random() * 11)]); dirty = true; fxs.land('stjorna'); fxs.land('bubbla'); }
@@ -2569,7 +2572,7 @@ const STAVIR = [...'AÁBDÐEFGHIÍJKLMNOÓPRSTUÚVYÝÆØ0123456789!?'];
   function renderTL() {
     closePop(true); tl.textContent = ''; if (!on) return; const p = pg(), A = ani(p), P = plan(p, null, true), T = Math.max(6, Math.ceil(P.end + 2)), figs = p.list.filter(o => !o.b), sl = M.sel();
     PX = Math.max(46, Math.min(110, (tl.clientWidth - 190) / T));
-    const hd = el('div', 'th', tl); const pb = btn(hd, Ic(PLAYI, 18) + 'Spæl', 'Spæl allar rørslurnar á arkinum', playAll); pb.className = 'tb hi'; pb.disabled = !A.length;
+    const hd = el('div', 'th', tl); const pb = btn(hd, Ic(PLAYI, 18) + 'Spæl', 'Spæl allar rørslurnar á arkinum', playAll); pb.className = 'tb hi'; pb.disabled = !A.length; if (window.DUKKA) { const db = btn(hd, '<span class="rdot"></span>Spæl inn', 'Drag figurarnar og tosa – Skvett tekur bæði upp', () => DUKKA.start()); db.className = 'tb rec'; db.disabled = !figs.length; }
     el('span', 'thint', hd, figs.length ? (sl ? 'Trýst á <b>+</b> á raðnum hjá ' + esc(figName(sl)) + ' fyri at geva honum eina rørslu ella eitt ljóð.' : 'Trýst á <b>+</b> á einum raði. Drag eina rørslu til síðuna fyri at flyta hana í tíð.') : 'Set fyrst ein figur á arkið.');
     btn(hd, 'Liðugt', '', off).className = 'tb';
     const sc = el('div', 'tsc', tl), inner = el('div', 'tin', sc); inner.style.width = 170 + T * PX + 60 + 'px';
@@ -2665,7 +2668,7 @@ const STAVIR = [...'AÁBDÐEFGHIÍJKLMNOÓPRSTUÚVYÝÆØ0123456789!?'];
   M.pathDone = (d, pth, s) => { if (!s || !s.ent) return false; s.ent.k = 'leid'; s.ent.p = pth; s.ent.d = pth[pth.length - 1][0] + .3; delete s.ent.gamal; M.save(); onM(); sel = s.ent.id; renderTL(); setTimeout(() => preview(s.ent), 200); return true; };
   addEventListener('resize', () => on && renderTL());
   addEventListener('pointerdown', ev => { if (pop && !pop.contains(ev.target) && !ev.target.closest('.tb2,.tadd,.tlab')) { closePop(); } }, true);
-  window.RORSLA = { addEntry, preview, redraw: () => on && renderTL(), isOn: () => on, at, plan, ani, sndOf, on: () => on, waiting: (p, clicks) => { const P = plan(p, clicks, false); return P.wait; }, total: (p, clicks, auto) => { const P = plan(p, clicks, auto); return P.wait ? Infinity : P.end; } };
+  window.RORSLA = { addEntry, preview, playAll, redraw: () => on && renderTL(), isOn: () => on, at, plan, ani, sndOf, on: () => on, waiting: (p, clicks) => { const P = plan(p, clicks, false); return P.wait; }, total: (p, clicks, auto) => { const P = plan(p, clicks, auto); return P.wait ? Infinity : P.end; } };
 })();
 </script>
 <script>
@@ -2791,6 +2794,59 @@ const STAVIR = [...'AÁBDÐEFGHIÍJKLMNOÓPRSTUÚVYÝÆØ0123456789!?'];
   /* knøtturin í lítla bjálkanum við ein figur */
   const mini = $('mini'), spk = [...mini.children].find(b => b.title === 'Ljóð'), mb = btn(mini, Ic(MIC) + '<span>Tala</span>', 'Tak upp, hvat figururin sigur', () => { const o = M.sel(); if (o) rec(o); }); mb.classList.add('mt'); if (spk) spk.before(mb);
   window.MIKRO = { rec };
+})();
+</script>
+<script>
+/* Dukkuleikur (Spæl inn): tú dregur figurarnar og tosar, og Skvett tekur bæði upp í senn.
+   Hvør figurur, sum flytur seg, fær eina Leið-rørslu, og røddin verður eitt ljóð á Arkið-raðnum. */
+(function () {
+  const M = window.MG, { btn, Ic, fxs } = M, $ = i => document.getElementById(i);
+  const bar = document.createElement('div'); bar.id = 'dukka'; bar.hidden = true; document.body.appendChild(bar);
+  let R = null;
+  const fmt = s => Math.floor(s / 60) + ':' + String(Math.floor(s % 60)).padStart(2, '0');
+
+  async function start() {
+    if (R) return; const figs = M.pg().list.filter(o => !o.b); if (!figs.length) { note('Set fyrst ein figur á arkið.'); return; }
+    M.select(null); M.tool('hond', 1); document.body.classList.add('dukka');
+    /* mikrofonin: um hon ikki er tøk, verða bara rørslurnar tiknar upp */
+    let st = null, rc = null, ch = []; try { if (window.MediaRecorder && navigator.mediaDevices) st = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } }); } catch (_) { st = null; }
+    /* niðurteljing */
+    for (const n of [3, 2, 1]) { bar.innerHTML = `<span class="cd">${n}</span><div><b>Ger teg klára${st ? '' : ' (uttan mikrofon)'}</b><small>Drag figurarnar og tosa, tá ið upptøkan byrjar.</small></div>`; bar.hidden = false; fxs.hover(n * 3); await new Promise(r => setTimeout(r, 750)); }
+    const vol = +($('vol') ? $('vol').value : 80) / 100; LJOD.vol(0);            /* forðar, at ljóðini í Skvett koma við í upptøkuna */
+    const snap = JSON.parse(M.json()).pages[M.S().i], start0 = figs.map(o => ({ o, x: o.x, y: o.y, s: [[0, o.x, o.y]] }));
+    R = { t0: performance.now(), figs: start0, snap, vol, st };
+    if (st) { rc = new MediaRecorder(st); rc.ondataavailable = e => e.data.size && ch.push(e.data); rc.start(); R.rc = rc; R.ch = ch; }
+    bar.innerHTML = `<span class="dot"></span><div><b>Upptøka <span class="tid">0:00</span></b><small>Drag figurarnar${st ? ' og tosa' : ''}. Trýst á Steðga, tá ið tú ert liðug/ur.</small></div>`;
+    const sb = btn(bar, Ic('<rect x="6" y="6" width="12" height="12"/>', 18) + 'Steðga', '', stop); sb.className = 'tb rec';
+    const tick = () => { if (!R) return; R.raf = requestAnimationFrame(tick); const t = (performance.now() - R.t0) / 1000; const ti = bar.querySelector('.tid'); if (ti) ti.textContent = fmt(t); R.figs.forEach(f => { const l = f.s[f.s.length - 1]; if (Math.abs(f.o.x - l[1]) > .5 || Math.abs(f.o.y - l[2]) > .5 || t - l[0] > .5) f.s.push([Math.round(t * 100) / 100, f.o.x, f.o.y]); }); if (t > 120) stop(); };
+    tick();
+  }
+  async function stop() {
+    if (!R) return; const q = R; R = null; cancelAnimationFrame(q.raf); LJOD.vol(q.vol); document.body.classList.remove('dukka');
+    const T = (performance.now() - q.t0) / 1000;
+    /* røddin */
+    let snd = null; if (q.rc) { await new Promise(r => { q.rc.onstop = r; q.rc.stop(); }); q.st.getTracks().forEach(t => t.stop()); if (q.ch.length) { const blob = new Blob(q.ch, { type: q.rc.mimeType }), id = Date.now().toString(36) + Math.floor(Math.random() * 999); try { const d = (await LJOD.decode(blob)).duration; if (d > .4) { await SOGA.put('a:' + id, blob); snd = { t: 'a', id, n: 'Dukkuleikur', d: Math.round(d * 10) / 10 }; } } catch (_) { } } }
+    /* rørslurnar */
+    const made = []; const p = M.pg();
+    q.figs.forEach(f => {
+      const s = f.s.filter(x => x), moved = s.findIndex(x => Math.hypot(x[1] - f.x, x[2] - f.y) > 3); if (moved < 0) return;
+      let last = s.length - 1; while (last > moved && Math.hypot(s[last][1] - s[last - 1][1], s[last][2] - s[last - 1][2]) < .5) last--;
+      const t0 = s[Math.max(0, moved - 1)][0], pts = [[0, 0, 0]]; for (let i = moved; i <= last; i++) { const x = s[i], pr = pts[pts.length - 1]; const pt = [Math.round((x[0] - t0) * 100) / 100, Math.round(x[1] - f.x), Math.round(x[2] - f.y)]; if (pt[0] - pr[0] >= .05 || i === last) pts.push(pt); }
+      made.push({ o: f.o, w: Math.round(t0 * 10) / 10, pts });
+    });
+    if (!made.length && !snd) { note('Eingin figurur varð fluttur, og einki varð sagt. Royn aftur.'); M.redraw(); return; }
+    /* figurarnir fara aftur, har teir byrjaðu; rørslan flytur teir í framsýningini */
+    q.figs.forEach(f => { f.o.x = f.x; f.o.y = f.y; }); const cur = M.pg(); if (!cur.list.includes(q.figs[0].o)) { /* um ein figurur var tikin burtur */ }
+    M.mark(q.snap); const id = 'd' + Date.now().toString(36);
+    made.forEach(m => RORSLA.addEntry(m.o, 'leid', { p: m.pts, d: Math.round((m.pts[m.pts.length - 1][0] + .3) * 10) / 10, w: m.w, dukka: id, ljod: false }));
+    if (snd) RORSLA.addEntry(null, 'ljod', { snd, d: snd.d, w: 0, dukka: id });
+    /* allir partar í hesi upptøkuni byrja í sama tíðarbroti */
+    const A = RORSLA.ani(p), P = RORSLA.plan(p, null, true), sec = P.list.length ? P.list[P.list.length - 1].sec : 0; A.filter(e => e.dukka === id).forEach(e => { e.st = 'tid'; e.w = made.find(m => m.o.i === e.o) ? made.find(m => m.o.i === e.o).w : 0; });
+    M.save(); RORSLA.redraw(); note('Upptøkan er goymd: ' + made.length + (made.length === 1 ? ' figurur flutti seg' : ' figurar fluttu seg') + (snd ? ' og tú tosaðir' : '') + '. Nú verður hon víst.'); setTimeout(() => RORSLA.playAll && RORSLA.playAll(), 500); M.redraw();
+  }
+  let nt = 0; function note(t) { bar.innerHTML = `<div><b>${t}</b></div>`; bar.hidden = false; clearTimeout(nt); nt = setTimeout(() => { if (!R) bar.hidden = true; }, 4000); }
+  addEventListener('keydown', ev => { if (R && ev.key === 'Escape') stop(); });
+  window.DUKKA = { start, stop, on: () => !!R };
 })();
 </script>
 <script>
