@@ -243,6 +243,7 @@ body.anim2 #anim{display:flex!important;flex-direction:column;padding:6px 0;gap:
 #avh{position:absolute;left:50%;top:12px;transform:translateX(-50%);z-index:9;background:#ffe23d;border:2px solid var(--ink);padding:8px 14px;font-weight:700;pointer-events:none;white-space:nowrap}
 .cr .tb.av{min-height:32px;padding:0 9px!important;font-size:13px;margin-left:4px}
 #mini button.mt{width:auto!important;padding:0 8px!important;gap:5px;display:flex!important;align-items:center}#mini button.mt span{font-size:12px;font-weight:700;white-space:nowrap}
+#fsh{position:fixed;right:12px;top:60px;z-index:61;background:#ffe23d;border:2px solid var(--ink);padding:8px 12px;font-weight:700}
 /* telefon */
 #fstip{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:60;background:#fff;border:3px solid var(--ink);padding:16px 18px;max-width:340px;display:flex;flex-direction:column;gap:8px;box-shadow:4px 5px 0 rgba(38,38,46,.25)}#fstip b{font-size:16px}#fstip p{margin:0;font-size:14px;line-height:1.35}#fstip .tb{align-self:flex-start}
 #vend{display:none}
@@ -2862,9 +2863,18 @@ const STAVIR = [...'AÁBDÐEFGHIÍJKLMNOÓPRSTUÚVYÝÆØ0123456789!?'];
   const b = document.createElement('button'); b.id = 'bF'; b.setAttribute('aria-label', 'Fullur skermur'); b.title = 'Fullur skermur'; $('bP').after(b);
   const set = () => { b.innerHTML = M.Ic(fsEl() ? OFF : ON); b.title = fsEl() ? 'Far úr fullum skermi' : 'Fullur skermur'; };
   set(); document.addEventListener('fullscreenchange', set); document.addEventListener('webkitfullscreenchange', set);
+  addEventListener('resize', () => setTimeout(set, 100)); document.addEventListener('visibilitychange', set);
+  function hintF() { let h = document.getElementById('fsh'); if (!h) { h = document.createElement('div'); h.id = 'fsh'; document.body.appendChild(h); } h.textContent = /Mac/.test(navigator.platform) ? 'Kagin vildi ikki fara á fullan skerm. Trýst á ⌃⌘F.' : 'Kagin vildi ikki fara á fullan skerm. Trýst á F11.'; h.hidden = false; clearTimeout(h.t); h.t = setTimeout(() => h.hidden = true, 4000); }
   let tip = null;
   b.onclick = () => {
-    if (can) { const d = document.documentElement; if (fsEl()) (document.exitFullscreen || document.webkitExitFullscreen).call(document); else (d.requestFullscreen || d.webkitRequestFullscreen).call(d); return; }
+    if (can) {
+      const d = document.documentElement, ex = document.exitFullscreen || document.webkitExitFullscreen, rq = el => (el.requestFullscreen || el.webkitRequestFullscreen).call(el);
+      /* altíð eftir veruligu støðuni, eisini um fulli skermurin varð sløktur við Esc */
+      if (fsEl()) { const r = ex.call(document); if (r && r.catch) r.catch(() => { }); setTimeout(set, 300); return; }
+      const fail = () => { if (!fsEl()) hintF(); };
+      try { const r = rq(d); if (r && r.then) r.then(set, () => { try { const r2 = rq(document.body); if (r2 && r2.then) r2.then(set, fail); } catch (_) { fail(); } }); } catch (_) { try { rq(document.body); } catch (__) { fail(); } }
+      setTimeout(() => { set(); if (!fsEl()) fail(); }, 900); return;
+    }
     if (tip) { tip.remove(); tip = null; return; }
     tip = document.createElement('div'); tip.id = 'fstip';
     tip.innerHTML = iOS ? '<b>Fullur skermur á iPhone</b><p>Trýst á <b>Deil</b>-knøttin í Safari (fýrakantin við pílinum upp) og vel <b>Legg á heimaskíggjan</b>.</p><p>So kemur Skvett sum ein app á heimaskíggjan og letur seg upp á fullum skermi.</p>' : '<b>Fullur skermur</b><p>Hesin kagin loyvir ikki fullum skermi her.</p>';
