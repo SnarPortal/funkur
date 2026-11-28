@@ -240,6 +240,9 @@ body.anim2 #anim{display:flex!important;flex-direction:column;padding:6px 0;gap:
 .tlrow{display:flex;height:26px;align-items:center;border-bottom:1px solid #e6e3e3}.tlrow.on{background:#fff8d6}.tlrow .tll{width:190px;flex:none;text-align:left;font-size:12px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;padding:0 6px 0 4px}
 .tlt{position:relative;height:100%}.tlbar{position:absolute;top:3px;height:20px;border:2px solid var(--ink);color:#fff;font-size:11px;font-weight:700;padding:0 6px;white-space:nowrap;overflow:hidden;cursor:grab;touch-action:none;display:flex;align-items:center}.tlbar:active{cursor:grabbing}
 .tlhd{position:absolute;right:0;top:0;bottom:0;width:8px;background:rgba(255,255,255,.55);cursor:ew-resize}.tlk{position:absolute;top:2px;color:var(--ink)}.tlph{position:absolute;top:0;bottom:0;width:2px;background:#e5252a;pointer-events:none}
+#avh{position:absolute;left:50%;top:12px;transform:translateX(-50%);z-index:9;background:#ffe23d;border:2px solid var(--ink);padding:8px 14px;font-weight:700;pointer-events:none;white-space:nowrap}
+.cr .tb.av{min-height:32px;padding:0 9px!important;font-size:13px;margin-left:4px}
+#mini button.mt{width:auto!important;padding:0 8px!important;gap:5px;display:flex!important;align-items:center}#mini button.mt span{font-size:12px;font-weight:700;white-space:nowrap}
 /* telefon */
 #fstip{position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);z-index:60;background:#fff;border:3px solid var(--ink);padding:16px 18px;max-width:340px;display:flex;flex-direction:column;gap:8px;box-shadow:4px 5px 0 rgba(38,38,46,.25)}#fstip b{font-size:16px}#fstip p{margin:0;font-size:14px;line-height:1.35}#fstip .tb{align-self:flex-start}
 #vend{display:none}
@@ -2312,7 +2315,7 @@ const STAVIR = [...'AÁBDÐEFGHIÍJKLMNOÓPRSTUÚVYÝÆØ0123456789!?'];
     st.pages.forEach((p, i) => {
       const c = el('section', 'card', g), im = btn(c, '', 'Tekna á hesum arkinum', () => { M.goto(i); closeBoard(); }); im.className = 'im'; im.appendChild(M.pageCanvas(i, 400)); el('b', 'no', im, String(i + 1));
       const r = el('div', 'cr', c), ib = (d, n, f, dis) => { const b = btn(r, Ic(d, 18), n, f); b.className = 'ib'; b.disabled = !!dis; };
-      ib('<path d="M15 5l-7 7 7 7"/>', 'Flyt fram', () => mv(i, -1), i === 0); ib('<path d="M9 5l7 7-7 7"/>', 'Flyt aftur', () => mv(i, 1), i === st.pages.length - 1); ib('<path d="M8 8h12v12H8zM4 16V4h12"/>', 'Ger eitt afturat', () => { const q = M.clonePage(p); st.pages.splice(i + 1, 0, q); if (st.i > i) st.i++; fxs.paper(1); M.save(); board(); }); ib('<path d="M5 7h14l-1.5 14h-11zM3 7h18M9 7V4h6v3"/>', 'Tak burtur', () => del(c, i), st.pages.length === 1);
+      ib('<path d="M15 5l-7 7 7 7"/>', 'Flyt fram', () => mv(i, -1), i === 0); ib('<path d="M9 5l7 7-7 7"/>', 'Flyt aftur', () => mv(i, 1), i === st.pages.length - 1); { const b = btn(r, Ic('<path d="M8 8h12v12H8zM4 16V4h12"/>', 16) + 'Avrita', 'Ger eitt avrit av hesum arkinum', () => { const q = M.clonePage(p); (q.list || []).forEach((o, n) => { if (!o.b) { const old = o.i; o.i = 'f' + Date.now().toString(36) + n; (q.ani || []).forEach(e => { if (e.o === old) e.o = o.i; }); } }); (q.ani || []).forEach((e, k) => e.id = 'a' + Date.now().toString(36) + k); st.pages.splice(i + 1, 0, q); if (st.i > i) st.i++; fxs.paper(1); M.save(); board(); }); b.className = 'tb av'; } ib('<path d="M5 7h14l-1.5 14h-11zM3 7h18M9 7V4h6v3"/>', 'Tak burtur', () => del(c, i), st.pages.length === 1);
       el('span', 'sp', r); const l = el('label', 'se', r, '<input type="number" min="1" max="60" step="1"> s'), n = l.firstChild; n.value = p.sec || 4; n.setAttribute('aria-label', 'Sekund'); n.onchange = () => { p.sec = Math.max(1, Math.min(60, +n.value || 4)); M.save(); };
       const cap = el('textarea', 'cap', c); cap.rows = 2; cap.placeholder = 'Tekstur undir myndini'; cap.value = p.cap || ''; cap.oninput = () => { p.cap = cap.value; M.save(); };
       const sb = btn(c, '', '', () => { const open = c.querySelector('.sp2'); if (open) { open.remove(); label(); return; } ov.querySelectorAll('.sp2').forEach(x => x.remove()); const w = el('div', 'sp2', c); sndPanel(w, p.snd, s => { if (s) p.snd = s; else delete p.snd; M.save(); label(); }); w.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }); sb.className = 'tb wide'; const label = () => { sb.innerHTML = Ic('<path d="M4 9h4l5-4v14l-5-4H4zM16.5 8.5a5 5 0 0 1 0 7"/>', 18) + esc(p.snd ? sndName(p.snd) : 'Legg ljóð afturat'); }; label();
@@ -2646,6 +2649,41 @@ const STAVIR = [...'AÁBDÐEFGHIÍJKLMNOÓPRSTUÚVYÝÆØ0123456789!?'];
   addEventListener('keydown', ev => { if (ev.key === 'Escape' && !ov.hidden) close(); });
   document.getElementById('bL').onclick = open;
   window.LAERA = { open, close, keep, list: () => list };
+})();
+</script>
+<script>
+/* Avrita og set inn: ein lutur kann avritast og setast inn á eitt annað ark, og eitt heilt ark kann avritast */
+(function () {
+  const M = window.MG, { btn, Ic, fxs } = M, $ = i => document.getElementById(i);
+  const COPY = '<path d="M8 8h12v12H8zM4 16V4h12"/>', PASTE = '<path d="M9 4h6v3H9zM7 5H5v16h14V5h-2M9 13l3 3 5-6"/>', ARK = '<path d="M7 7h13v14H7zM4 17V3h13"/><path d="M11 12h5M11 15h5"/>';
+  let clip = null; try { clip = JSON.parse(sessionStorage.getItem('skvett-clip')); } catch (_) { }
+  const nid = () => 'f' + Date.now().toString(36) + Math.floor(Math.random() * 9999);
+
+  /* tey bæði í toppbjálkanum: avrita arkið og set inn */
+  const ab = btn($('top'), Ic(ARK), 'Avrita arkið', copyArk); ab.id = 'bAk'; $('bB').after(ab);
+  const pb = btn($('top'), Ic(PASTE) + '<span class="lb">Set inn</span>', 'Set inn tað, sum tú avritaði', paste); pb.id = 'bSi'; $('bU').before(pb); pb.hidden = !clip;
+
+  function copyArk() {
+    const S = M.S(), p = M.pg(), q = M.clonePage(p); (q.list || []).forEach(o => { if (!o.b) { const old = o.i; o.i = nid(); (q.ani || []).forEach(e => { if (e.o === old) e.o = o.i; }); } }); (q.ani || []).forEach((e, k) => e.id = 'a' + Date.now().toString(36) + k);
+    S.pages.splice(S.i + 1, 0, q); fxs.paper(0); M.save(); setTimeout(() => { M.goto(S.i + 1); fxs.paper(1); hint('Arkið er avritað. Nú ert tú á avritinum (ark ' + (S.i + 1) + ').'); }, 120);
+  }
+  function copyObj(d) { if (!d) return; clip = JSON.parse(JSON.stringify(d)); delete clip._b; try { sessionStorage.setItem('skvett-clip', JSON.stringify(clip)); } catch (_) { } pb.hidden = false; fxs.peel(); hint('Avritað. Far til eitt annað ark og trýst á «Set inn».'); }
+  function paste() {
+    if (!clip) return; const p = M.pg(), d = JSON.parse(JSON.stringify(clip)); d.i = nid(); delete d.an;
+    while (p.list.some(o => !o.b && Math.abs(o.x - d.x) < 8 && Math.abs(o.y - d.y) < 8)) { d.x = Math.min(1240, d.x + 40); d.y = Math.min(715, d.y + 12); }
+    M.mark(); p.list.push(d); M.save(); fxs.stick(); M.select(d); M.redraw();
+  }
+  /* í lítla bjálkanum við ein lut: avrita til annað ark (við síðuna av «Ger eitt afturat») */
+  const mini = $('mini'), dup = [...mini.children].find(b => b.title === 'Ger eitt afturat');
+  if (dup) { dup.title = 'Ger ein afturat her'; dup.setAttribute('aria-label', 'Ger ein afturat her'); dup.insertAdjacentHTML('beforeend', '<span>Ein afturat</span>'); dup.classList.add('mt'); }
+  const cb = btn(mini, Ic(PASTE.replace('M9 13l3 3 5-6', 'M9 12h6M9 16h6')), 'Avrita til eitt annað ark', () => copyObj(M.sel())); cb.insertAdjacentHTML('beforeend', '<span>Avrita</span>'); cb.classList.add('mt'); if (dup) dup.after(cb);
+
+  let ht = 0; function hint(t) { let h = $('avh'); if (!h) { h = document.createElement('div'); h.id = 'avh'; $('stagecell').appendChild(h); } h.textContent = t; h.hidden = false; clearTimeout(ht); ht = setTimeout(() => h.hidden = true, 3200); }
+  addEventListener('keydown', ev => {
+    if (/INPUT|TEXTAREA/.test(ev.target.tagName) || !(ev.ctrlKey || ev.metaKey) || document.querySelector('.ov:not([hidden])')) return; const k = ev.key.toLowerCase();
+    if (k === 'c' && M.sel()) { ev.preventDefault(); copyObj(M.sel()); } else if (k === 'v' && clip) { ev.preventDefault(); paste(); } else if (k === 'd' && M.sel()) { ev.preventDefault(); dup && dup.click(); }
+  });
+  M.copyArk = copyArk;
 })();
 </script>
 <script>
