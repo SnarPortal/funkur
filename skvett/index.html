@@ -280,6 +280,8 @@ body.anim2 #anim{padding:0!important;gap:0!important;background:#fff;border-top:
 #tpop .rlab{display:flex;align-items:center;gap:6px;font-weight:800;font-size:13px;margin-top:4px}#tpop .snow{flex:1;font-weight:700}#tpop .snow small{font-weight:500;color:#5c5a55}#tpop .rtip{margin:0;font-size:13px}#tpop .rck{display:flex;align-items:center;gap:8px;font-size:13px}#tpop .rck input{width:18px;height:18px}#tpop .sp2{max-height:240px}
 #rgal .gg small{display:flex;align-items:center;gap:4px;font-size:11px;color:#5c5a55;padding-bottom:4px}
 @media (max-height:480px){body.anim2{grid-template-rows:40px minmax(0,1fr) 150px!important}#anim .trow{height:50px}.tb2{height:38px;top:5px}#anim .tlab{width:120px}#anim .tlab canvas{width:30px;height:30px}}
+#mikro{position:fixed;left:50%;top:84px;transform:translateX(-50%);z-index:45;background:#fff;border:3px solid var(--ink);padding:12px 14px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;max-width:min(560px,calc(100vw - 16px));box-shadow:4px 5px 0 rgba(38,38,46,.25)}#mikro.feil{background:#fff3f3}#mikro b{display:block;font-size:16px}#mikro small{display:block;font-size:13px}#mikro .tid{font-weight:800;font-size:18px;min-width:40px;text-align:right}
+#mikro .dot{width:18px;height:18px;border-radius:50%;background:#e5252a;animation:mdot 1s ease-in-out infinite;flex:none}@keyframes mdot{50%{opacity:.25}}
 </style>
 </head>
 <body>
@@ -2627,6 +2629,7 @@ const STAVIR = [...'AÁBDÐEFGHIÍJKLMNOÓPRSTUÚVYÝÆØ0123456789!?'];
   function openAdd(o, anchor) {
     const body = popAt(anchor, o ? 'Legg afturat hjá ' + esc(figName(o)) : 'Legg ljóð afturat til arkið');
     if (o) { const b1 = btn(body, `<span class="rc" style="background:#2fae4f">${Ic(CI.inn, 14)}</span>Rørsla <small>(við ljóði)</small>`, '', () => { closePop(); gallery(null, o); }); b1.className = 'tb wide'; }
+    if (o && window.MIKRO) { const b0 = btn(body, `<span class="rc" style="background:#e5252a">${Ic('<path d="M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3zM6 11a6 6 0 0 0 12 0M12 17v4M8 21h8"/>', 14)}</span>Tak upp, hvat ${esc(figName(o))} sigur`, '', () => { closePop(); MIKRO.rec(o); }); b0.className = 'tb wide'; body.prepend(b0); }
     const b2 = btn(body, `<span class="rc" style="background:#7a8cff">${Ic(SPK, 14)}</span>${o ? 'Bert eitt ljóð (t.d. tað, figururin sigur)' : 'Eitt ljóð'}`, '', () => { const box = el('div', 'sp2', body); b2.remove(); SOGA.sndPanel(box, null, s => { if (!s) return; M.mark(); const e = addEntry(o, 'ljod', { snd: s, d: Math.round((s.d || 2) * 10) / 10 }); M.save(); sel = e.id; renderTL(); blockPop(e, o); }); }); b2.className = 'tb wide';
   }
   const SOGA_NAME = s => !s ? '' : s.t === 'lib' ? (Object.values(SOGA.LIB).flat().find(x => x[0] === s.id) || ['', s.id.startsWith('vox:') ? FOLKID[s.id.slice(4)].n : 'Ljóð'])[1] : s.n || 'Upptøka';
@@ -2662,7 +2665,7 @@ const STAVIR = [...'AÁBDÐEFGHIÍJKLMNOÓPRSTUÚVYÝÆØ0123456789!?'];
   M.pathDone = (d, pth, s) => { if (!s || !s.ent) return false; s.ent.k = 'leid'; s.ent.p = pth; s.ent.d = pth[pth.length - 1][0] + .3; delete s.ent.gamal; M.save(); onM(); sel = s.ent.id; renderTL(); setTimeout(() => preview(s.ent), 200); return true; };
   addEventListener('resize', () => on && renderTL());
   addEventListener('pointerdown', ev => { if (pop && !pop.contains(ev.target) && !ev.target.closest('.tb2,.tadd,.tlab')) { closePop(); } }, true);
-  window.RORSLA = { at, plan, ani, sndOf, on: () => on, waiting: (p, clicks) => { const P = plan(p, clicks, false); return P.wait; }, total: (p, clicks, auto) => { const P = plan(p, clicks, auto); return P.wait ? Infinity : P.end; } };
+  window.RORSLA = { addEntry, preview, redraw: () => on && renderTL(), isOn: () => on, at, plan, ani, sndOf, on: () => on, waiting: (p, clicks) => { const P = plan(p, clicks, false); return P.wait; }, total: (p, clicks, auto) => { const P = plan(p, clicks, auto); return P.wait ? Infinity : P.end; } };
 })();
 </script>
 <script>
@@ -2753,6 +2756,41 @@ const STAVIR = [...'AÁBDÐEFGHIÍJKLMNOÓPRSTUÚVYÝÆØ0123456789!?'];
     if (k === 'c' && M.sel()) { ev.preventDefault(); copyObj(M.sel()); } else if (k === 'v' && clip) { ev.preventDefault(); paste(); } else if (k === 'd' && M.sel()) { ev.preventDefault(); dup && dup.click(); }
   });
   M.copyArk = copyArk;
+})();
+</script>
+<script>
+/* Mikrofonin: «Hvat sigur figururin?» Upptøkan verður ein Tosa-rørsla við tíni rødd, og figururin hreyvir munnin, so leingi tú tosar */
+(function () {
+  const M = window.MG, { btn, Ic, fxs } = M, $ = i => document.getElementById(i);
+  const MIC = '<path d="M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3zM6 11a6 6 0 0 0 12 0M12 17v4M8 21h8"/>';
+  const name = o => o.t[0] === 'f' ? FOLKID[o.t.split(':')[1]].n : 'figururin';
+  const box = document.createElement('div'); box.id = 'mikro'; box.hidden = true; document.body.appendChild(box);
+  let R = null;
+  const msg = (t, err) => { box.innerHTML = `<b>${t}</b>`; const b = btn(box, 'Lat aftur', '', close); b.className = 'tb'; box.classList.toggle('feil', !!err); box.hidden = false; };
+  function close() { if (R) { R.cancel = true; try { R.rec.stop(); } catch (_) { } } box.hidden = true; box.classList.remove('feil'); }
+  async function rec(o) {
+    if (!o || R) return; if (!window.MediaRecorder || !navigator.mediaDevices) return msg('Hesin kagin kann ikki taka upp ljóð.', 1);
+    box.innerHTML = '<b>Bíða eftir mikrofonini …</b>'; box.hidden = false; let st;
+    try { st = await navigator.mediaDevices.getUserMedia({ audio: { echoCancellation: true, noiseSuppression: true } }); } catch (_) { return msg('Mikrofonin er ikki tøk. Loyv Skvett at brúka mikrofonina og royn aftur.', 1); }
+    const ch = [], rc = new MediaRecorder(st), t0 = performance.now(); R = { rec: rc, cancel: false };
+    box.innerHTML = `<span class="dot"></span><div><b>Hvat sigur ${name(o)}?</b><small>Tosa nú. Trýst á Steðga, tá ið tú ert liðug/ur.</small></div><span class="tid">0 s</span>`;
+    const stop = btn(box, Ic('<rect x="6" y="6" width="12" height="12"/>', 18) + 'Steðga', '', () => rc.stop()); stop.className = 'tb rec'; const nei = btn(box, 'Angra', '', close); nei.className = 'tb';
+    const tk = setInterval(() => { const s = (performance.now() - t0) / 1000; box.querySelector('.tid').textContent = Math.floor(s) + ' s'; if (s > 30) rc.stop(); }, 200);
+    rc.ondataavailable = e => e.data.size && ch.push(e.data);
+    rc.onstop = async () => {
+      clearInterval(tk); st.getTracks().forEach(t => t.stop()); const q = R; R = null; if (q.cancel || !ch.length) { box.hidden = true; return; }
+      const blob = new Blob(ch, { type: rc.mimeType }), id = Date.now().toString(36) + Math.floor(Math.random() * 999); await SOGA.put('a:' + id, blob);
+      let d = 2; try { d = (await LJOD.decode(blob)).duration; } catch (_) { return msg('Upptøkan kundi ikki lesast. Royn aftur.', 1); }
+      if (d < .3) return msg('Upptøkan var ov stutt. Royn aftur.', 1);
+      const snd = { t: 'a', id, n: name(o) + ' sigur', d: Math.round(d * 10) / 10 }; M.mark(); const e = RORSLA.addEntry(o, 'tala', { snd, d: snd.d }); M.save(); RORSLA.redraw();
+      box.innerHTML = `<b>Goymt.</b><small>${RORSLA.isOn() ? 'Tað liggur nú á raðnum hjá ' + name(o) + '.' : 'Trýst á Rørsla fyri at síggja ella flyta tað.'}</small>`; const b = btn(box, 'Lat aftur', '', close); b.className = 'tb'; setTimeout(() => { if (!R) box.hidden = true; }, 4000);
+      setTimeout(() => RORSLA.preview(e), 200);
+    };
+    rc.start(); fxs.hover(4);
+  }
+  /* knøtturin í lítla bjálkanum við ein figur */
+  const mini = $('mini'), spk = [...mini.children].find(b => b.title === 'Ljóð'), mb = btn(mini, Ic(MIC) + '<span>Tala</span>', 'Tak upp, hvat figururin sigur', () => { const o = M.sel(); if (o) rec(o); }); mb.classList.add('mt'); if (spk) spk.before(mb);
+  window.MIKRO = { rec };
 })();
 </script>
 <script>
